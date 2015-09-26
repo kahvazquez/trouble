@@ -1,6 +1,7 @@
 {
     "require": {
         "j4mie/idiorm": "^1.5",
-        "klein/klein": "^2.1"
+        "klein/klein": "^2.1",
+        "xamin/handlebars.php": "^0.10.2"
     }
 }
