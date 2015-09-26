@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9ff1338b215cae8c332b5b663e8440e7",
+    "hash": "8317dbbb15e86d2f268ca0c915184320",
     "packages": [
         {
             "name": "j4mie/idiorm",
@@ -119,6 +119,61 @@
                 "sinatra"
             ],
             "time": "2014-11-07 07:35:23"
+        },
+        {
+            "name": "latte/latte",
+            "version": "v2.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/latte.git",
+                "reference": "5e891af999776d2204a9d06ad66ad8fa0bcd4f8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/latte/zipball/5e891af999776d2204a9d06ad66ad8fa0bcd4f8b",
+                "reference": "5e891af999776d2204a9d06ad66ad8fa0bcd4f8b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=5.3.1"
+            },
+            "require-dev": {
+                "nette/tester": "~1.3"
+            },
+            "suggest": {
+                "ext-fileinfo": "to use filter |datastream",
+                "ext-mbstring": "to use filters like lower, upper, capitalize, ..."
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "http://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "http://nette.org/contributors"
+                }
+            ],
+            "description": "Latte: the amazing template engine for PHP",
+            "homepage": "http://latte.nette.org",
+            "keywords": [
+                "templating",
+                "twig"
+            ],
+            "time": "2015-08-23 12:36:55"
         },
         {
             "name": "xamin/handlebars.php",
