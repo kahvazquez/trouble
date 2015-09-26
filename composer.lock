@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8317dbbb15e86d2f268ca0c915184320",
+    "hash": "72866964a210b7fa1e90ff1b37f2eecd",
+    "content-hash": "4723f7d31e064862c639e65319531993",
     "packages": [
         {
             "name": "j4mie/idiorm",
@@ -174,48 +175,6 @@
                 "twig"
             ],
             "time": "2015-08-23 12:36:55"
-        },
-        {
-            "name": "xamin/handlebars.php",
-            "version": "v0.10.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/XaminProject/handlebars.php.git",
-                "reference": "a47d7e0fb26d1da08475c1ffa40a86159a78ba69"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/XaminProject/handlebars.php/zipball/a47d7e0fb26d1da08475c1ffa40a86159a78ba69",
-                "reference": "a47d7e0fb26d1da08475c1ffa40a86159a78ba69",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.4",
-                "squizlabs/php_codesniffer": "~1.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Handlebars": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "fzerorubigd",
-                    "email": "fzerorubigd@gmail.com"
-                },
-                {
-                    "name": "Behrooz Shabani (everplays)",
-                    "email": "everplays@gmail.com"
-                }
-            ],
-            "description": "Handlebars processor for php",
-            "homepage": "https://github.com/XaminProject/handlebars.php",
-            "time": "2015-07-14 18:08:50"
         }
     ],
     "packages-dev": [],

@@ -2,14 +2,14 @@
 
 function pageAssets() {
 	return [
-		'scripts' => [],
+		'js' => [],
 		'css' => []
 	];
 }
 
 $assets = [
 
-	'scripts' => [],
+	'js' => [],
 
 	'css' => [
 

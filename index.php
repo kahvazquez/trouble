@@ -6,12 +6,11 @@ require_once 'vendor/autoload.php';
 
 error_reporting(-1);
 
-$config = parse_ini_file('config.ini', true);
 $klein = new \Klein\Klein();
 
-$klein->respond(function ($request, $response, $service, $app) use ($config) {
+$klein->respond(function ($request, $response, $service, $app) {
 
-  $app->register('db', function() {
+  $app->register('db', function () {
 
     return new Db;
 
