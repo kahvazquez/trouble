@@ -42,7 +42,7 @@ $klein->respond('GET', "{$baseUrl}/?",
 	
 	});
 
-$klein->respond('GET', "{$baseUrl}/equipamentos/?", 
+$klein->respond('GET', "{$baseUrl}/equipamentos?/?", 
 
 	function ($req, $res, $svc, $app) {
 	
@@ -56,7 +56,7 @@ $klein->respond('GET', "{$baseUrl}/equipamentos/?",
 
 	});
 	
-$klein->respond('GET', "{$baseUrl}/tickets/?", 
+$klein->respond('GET', "{$baseUrl}/tickets?/?", 
 
 	function ($req, $res, $svc, $app) {
 	
