@@ -21,7 +21,9 @@ class Tickets {
 	public static function xls() {
 		return function ($req, $res, $svc, $app) {
 			
-			$exportFile = __DIR__ . '/xls/export.xlsx';
+			$time = time();
+			$date = date('d-m-Y');
+			$exportFile = __DIR__ . "/xls/relatorio-tickets-{$time}.xlsx";
 			
 			$headers = [
 				[
@@ -52,11 +54,11 @@ class Tickets {
 			}, Tickets::filter($req, $app));
 			
 			$writer = new \XLSXWriter();
-			$writer->writeSheet($headers + $rows, 'Relatório ' . date('d-m-Y'));
+			$writer->writeSheet($headers + $rows, 'Relatório ' . $date);
 			$writer->setAuthor('Sim TV - Trouble Ticket');
 			$writer->writeToFile($exportFile);
 			
-			$res->file($exportFile);
+			$res->file($exportFile, "Relatório Tickets {$date}.xlsx");
 			
 		};
 	}	
