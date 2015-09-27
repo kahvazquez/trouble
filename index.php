@@ -3,6 +3,8 @@
 namespace ksv\trouble;
 
 require 'Rotas.php';
+require 'Equipamentos.php';
+require 'Tickets.php';
 require 'Db.php';
 require 'TemplateEngine.php';
 require_once 'vendor/autoload.php'; 
@@ -37,12 +39,12 @@ $klein->respond('GET', "{$baseUrl}/?",
   Rotas::raiz());
 
 $klein->respond('GET', "{$baseUrl}/equipamentos?/?",
-  Rotas::equipamentos());
+  Equipamentos::lista());
   
 $klein->respond('GET', "{$baseUrl}/tickets?/?", 
-  Rotas::tickets());
+  Tickets::lista());
   
 $klein->respond('GET', "{$baseUrl}/tickets?/relatorio/?", 
-  Rotas::ticketsXls());
+  Tickets::xls());
 
 $klein->dispatch();

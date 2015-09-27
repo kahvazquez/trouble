@@ -46,6 +46,11 @@ class TemplateEngine {
 		$data = array_merge($layoutAssets, $data);
 
 		$data['baseUrl'] = $this->baseUrl;
+		
+		$data['pathInfo'] = rtrim($_SERVER['PATH_INFO'], '/');
+		
+		$data['queryString'] = $_SERVER['QUERY_STRING'];
+		 
 		$data['pages'] = $this->getPages();
 
 		return $this->engine->renderToString("templates/$name.latte", $data);

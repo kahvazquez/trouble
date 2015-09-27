@@ -1,0 +1,21 @@
+<form class='form-inline pull-right' method='GET'>
+	<div class='form-group'>
+		<label>Filtrar cidade</label>
+		
+		<select class='form-control' name='cidade'>
+			
+			<option value=''>-- Selecionar --</option>
+			
+			<option 
+					n:foreach='$cidades as $cidade' 
+					n:attr='selected => $selected->cidade == $cidade->id'
+					value='{$cidade->id}'>
+				{$cidade->name}
+			</option>
+			
+		</select>
+		
+		<button class='btn btn-primary' type='submit'>Ok</button>
+		
+	</div>
+</form>

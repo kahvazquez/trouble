@@ -2,14 +2,18 @@
 
 {block content}
 
-	<div class='clearfix'>
+	<section class='clearfix'>
 		
-		<a class='btn btn-default' target='_blank' href="{$baseUrl}/tickets/relatorio">
+		<a class='btn btn-default' target='_blank' href="{$pathInfo}/relatorio/?{$queryString}">
 			Relatorio
 		</a>
 		
-	</div>
+		{include 'filtro-cidade.latte'}
+		
+	</section>
+
 	<hr/>
+
 	<table class='table table-striped'>
 		<thead>
 			<tr>
