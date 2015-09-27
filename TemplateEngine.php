@@ -1,8 +1,9 @@
 <?php
 
-require_once 'vendor/autoload.php';
+namespace ksv\trouble;
+use \Latte\Engine;
 
-use Handlebars\Handlebars;
+require_once 'vendor/autoload.php';
 
 class TemplateEngine {
 
@@ -10,7 +11,7 @@ class TemplateEngine {
 
 	public function __construct() {
 
-		$this->engine = new Latte\Engine;
+		$this->engine = new Engine;
 		$this->engine->setTempDirectory('cache');
 
 	}

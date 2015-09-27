@@ -1,5 +1,8 @@
 <?php
 
+namespace ksv\trouble;
+use \ORM;
+
 require_once 'vendor/autoload.php';
 
 $config = parse_ini_file('config.ini', true);

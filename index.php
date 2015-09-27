@@ -1,8 +1,11 @@
 <?php
 
+namespace ksv\trouble;
+
+require 'Rotas.php';
 require 'Db.php';
 require 'TemplateEngine.php';
-require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php'; 
 
 error_reporting(-1);
 
@@ -31,43 +34,12 @@ $klein->respond(function ($req, $res, $svc, $app) {
 });
 
 $klein->respond('GET', "{$baseUrl}/?", 
+  Rotas::raiz());
 
-	function ($req, $res, $svc, $app) {
-	
-		$html = $app->template->render('home', [
-			'name' => $app->db->test->where_equal('id', 1)->find_one()->name
-		]);
-		
-		$res->body($html)->send();
-	
-	});
-
-$klein->respond('GET', "{$baseUrl}/equipamentos?/?", 
-
-	function ($req, $res, $svc, $app) {
-	
-		$equipamentos = $app->db->equipamentos->find_many();
-		
-		$html = $app->template->render('equipamentos', [
-			'equipamentos' => $equipamentos
-		]);
-	
-		$res->body($html)->send();
-
-	});
-	
+$klein->respond('GET', "{$baseUrl}/equipamentos?/?",
+  Rotas::equipamentos());
+  
 $klein->respond('GET', "{$baseUrl}/tickets?/?", 
-
-	function ($req, $res, $svc, $app) {
-	
-		$tickets = $app->db->t_ticket->find_many();
-		
-		$html = $app->template->render('tickets', [
-			'tickets' => $tickets
-		]);
-	
-		$res->body($html)->send();
-
-	});
+  Rotas::tickets());
 
 $klein->dispatch();
