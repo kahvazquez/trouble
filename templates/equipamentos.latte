@@ -2,28 +2,32 @@
 
 {block content}
 
-	<form class='form-inline pull-right' method='GET'>
-		<div class='form-group'>
-			<label>Filtrar cidade</label>
-			
-			<select class='form-control' name='cidade'>
+	<section class='clearfix'>
+		<form class='form-inline pull-right' method='GET'>
+			<div class='form-group'>
+				<label>Filtrar cidade</label>
 				
-				<option value=''>-- Selecionar --</option>
+				<select class='form-control' name='cidade'>
+					
+					<option value=''>-- Selecionar --</option>
+					
+					<option 
+							n:foreach='$cidades as $cidade' 
+							n:attr='selected => $selected->cidade == $cidade->id'
+							value='{$cidade->id}'>
+						{$cidade->name}
+					</option>
+					
+				</select>
 				
-				<option 
-						n:foreach='$cidades as $cidade' 
-						n:attr='selected => $selected->cidade == $cidade->id'
-						value='{$cidade->id}'>
-					{$cidade->name}
-				</option>
+				<button class='btn btn-primary' type='submit'>Ok</button>
 				
-			</select>
-			
-			<button class='btn btn-primary' type='submit'>Ok</button>
-			
-		</div>
-	</form>
-
+			</div>
+		</form>
+	</section>
+	
+	<hr/>
+	
 	<table class='table table-striped'>
 		<thead>
 			<tr>

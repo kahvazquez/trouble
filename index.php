@@ -41,5 +41,8 @@ $klein->respond('GET', "{$baseUrl}/equipamentos?/?",
   
 $klein->respond('GET', "{$baseUrl}/tickets?/?", 
   Rotas::tickets());
+  
+$klein->respond('GET', "{$baseUrl}/tickets?/relatorio/?", 
+  Rotas::ticketsXls());
 
 $klein->dispatch();

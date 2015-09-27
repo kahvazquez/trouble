@@ -2,6 +2,8 @@
 
 namespace ksv\trouble;
 
+require_once 'vendor/autoload.php';
+
 class Rotas {
 	
 	public static function raiz() {
@@ -17,6 +19,53 @@ class Rotas {
 		};
 
 	}
+
+	public static function ticketsXls() {
+		return function ($req, $res, $svc, $app) {
+			
+			
+			
+			$exportFile = __DIR__ . '/xls/export.xls';
+			
+			$headers = [
+				[
+					'Protocolo',
+					'Operadora',
+					'Status',
+					'Cidade',
+					'Problema',
+					'Designação',
+					'Cliente Final',
+					'Data'
+				]
+			];
+			
+			$rows = array_map(function ($ticket) {
+
+				return [
+					$ticket->protocolo,
+					$ticket->operadora,
+					$ticket->status,
+					$ticket->cidade,
+					$ticket->tipo_problema,
+					$ticket->designacao,
+					$ticket->cliente_final,
+					$ticket->date
+				];
+
+			}, $app->db->t_ticket->find_many());
+			
+			
+			
+			$writer = new \XLSXWriter();
+			$writer->writeSheet($headers + $rows, 'Relatório ' . date('d-m-Y'));
+			$writer->setAuthor('Sim TV - Trouble Ticket');
+			$writer->writeToFile($exportFile);
+			
+			$res->file($exportFile);
+			
+		};
+	}	
 	
 	public static function equipamentos() {
 
