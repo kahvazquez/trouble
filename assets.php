@@ -20,3 +20,5 @@ $assets = [
 ];
 
 $assets['home'] = pageAssets();
+$assets['equipamentos'] = pageAssets();
+$assets['tickets'] = pageAssets();

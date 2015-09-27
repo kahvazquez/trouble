@@ -1,0 +1,40 @@
+{layout 'index.latte'}
+
+{block content}
+
+	<table class='table table-striped'>
+		<thead>
+			<tr>
+				<th>Cidade</th>
+				<th>Fabricante</th>
+				<th>Identificação</th>
+				<th>Localização</th>
+				<th>IP</th>
+				<th>Acesso</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{foreach $equipamentos as $equipamento}
+
+				<tr>
+
+					<td>{$equipamento->cidade}</td>
+					<td>{$equipamento->fabricante}</td>
+					<td>{$equipamento->ident}</td>
+					<td>{$equipamento->localizacao}</td>
+					<td>{$equipamento->ip}</td>
+
+					<td>
+						{$equipamento->login}<br/>
+						{$equipamento->senha}
+					</td>
+
+				</tr>
+
+			{/foreach}
+			
+		</tbody>
+	</table>
+	
+{/block}

@@ -1,0 +1,36 @@
+{layout 'index.latte'}
+
+{block content}
+
+	<table class='table table-striped'>
+		<thead>
+			<tr>
+				<th>Protocolo</th>
+				<th>Operadora</th>
+				<th>Status</th>
+				<th>Cidade</th>
+				<th>Problema</th>
+				<th>Designação</th>
+				<th>Cliente Final</th>
+				<th>Data</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			{foreach $tickets as $ticket}
+				<tr>
+					<td>{$ticket->protocolo}</td>
+					<td>{$ticket->operadora}</td>
+					<td>{$ticket->status}</td>
+					<td>{$ticket->cidade}</td>
+					<td>{$ticket->tipo_problema}</td>
+					<td>{$ticket->designacao}</td>
+					<td>{$ticket->cliente_final}</td>
+					<td>{$ticket->date}</td>
+				</tr>
+			{/foreach}
+			
+		</tbody>
+	</table>
+	
+{/block}

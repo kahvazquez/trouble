@@ -9,7 +9,6 @@ $db = (object) $config['db'];
 ORM::configure("mysql:host={$db->host};dbname={$db->name}");
 ORM::configure('username', $db->username);
 ORM::configure('password', $db->password);
-ORM::configure('error_mode', PDO::ERRMODE_WARNING);
 
 class Db {
 	
