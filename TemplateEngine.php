@@ -9,12 +9,10 @@ class TemplateEngine {
 
 	private $engine;
 	private $app;
-	private $baseUrl;
 
-	public function __construct($baseUrl, &$app) {
-
+	public function __construct($app) {
+		
 		$this->app = $app;
-		$this->baseUrl = $baseUrl;
 		$this->engine = new Engine;
 		$this->engine->setTempDirectory('cache');
 
@@ -22,19 +20,22 @@ class TemplateEngine {
 
 	private function getPages() {
 
-		$baseUrl = $this->baseUrl;
 		$pages = $this->app->db->
 			page->where_equal('menu', 1)->
 			find_many();
 			
-		return array_map(function ($page) use ($baseUrl) {
+		return array_map(function ($page) {
+
+			global $baseUrl;
+
 			$page->url = "{$baseUrl}/{$page->id}";
 			return $page;
+
 		}, $pages);
 		
 	}
 	
-	public function render($name, $data) {
+	public function render($name, $data = []) {
 
 		require_once 'assets.php';
 

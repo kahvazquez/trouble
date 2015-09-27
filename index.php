@@ -2,24 +2,23 @@
 
 namespace ksv\trouble;
 
-require 'Rotas.php';
-require 'Equipamentos.php';
-require 'Tickets.php';
-require 'Db.php';
-require 'TemplateEngine.php';
-require_once 'vendor/autoload.php'; 
-
-error_reporting(-1);
-
 $baseUrl = '';
 
 if (strpos($_SERVER["REQUEST_URI"], '/index.php') !== FALSE) {
   $baseUrl .= '/index.php';
 }
 
-$klein = new \Klein\Klein();
+require 'Rotas.php';
+require 'Equipamentos.php';
+require 'Tickets.php';
+require 'Db.php';
+require 'TemplateEngine.php';
+require_once 'vendor/autoload.php';
 
-$klein->respond(function ($req, $res, $svc, $app) use ($baseUrl) {
+error_reporting(0);
+
+$klein = new \Klein\Klein();
+$klein->respond(function ($req, $res, $svc, $app) {
 
   $app->register('db', function () {
 
@@ -27,24 +26,24 @@ $klein->respond(function ($req, $res, $svc, $app) use ($baseUrl) {
 
   });
 
-  $app->register('template', function () use (&$app, $baseUrl) {
+  $app->register('template', function () use ($app) {
 
-  	return new TemplateEngine($baseUrl, $app);
+  	return new TemplateEngine($app);
 
   });
 
 });
 
-$klein->respond('GET', "{$baseUrl}/?", 
+$klein->respond('GET', "{$baseUrl}/?",
   Rotas::raiz());
 
 $klein->respond('GET', "{$baseUrl}/equipamentos?/?",
   Equipamentos::lista());
-  
-$klein->respond('GET', "{$baseUrl}/tickets?/?", 
+
+$klein->respond('GET', "{$baseUrl}/tickets?/?",
   Tickets::lista());
-  
-$klein->respond('GET', "{$baseUrl}/tickets?/relatorio/?", 
+
+$klein->respond('GET', "{$baseUrl}/tickets?/relatorio/?",
   Tickets::xls());
 
 $klein->dispatch();
