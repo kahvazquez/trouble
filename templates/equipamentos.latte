@@ -6,14 +6,14 @@
 		<div class='form-group'>
 			<label>Filtrar cidade</label>
 			
-			<select name='cidade' class='form-control' required>
+			<select class='form-control' name='cidade'>
 				
 				<option value=''>-- Selecionar --</option>
 				
 				<option 
-						n:foreach="$cidades as $cidade" 
-						n:attr="selected => $selected->cidade == $cidade->id"
-						value="{$cidade->id}">
+						n:foreach='$cidades as $cidade' 
+						n:attr='selected => $selected->cidade == $cidade->id'
+						value='{$cidade->id}'>
 					{$cidade->name}
 				</option>
 				

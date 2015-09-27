@@ -8,9 +8,11 @@ require_once 'vendor/autoload.php';
 class TemplateEngine {
 
 	private $engine;
+	private $app;
 
-	public function __construct() {
+	public function __construct(&$app) {
 
+		$this->app = $app;
 		$this->engine = new Engine;
 		$this->engine->setTempDirectory('cache');
 

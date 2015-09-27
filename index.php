@@ -25,9 +25,9 @@ $klein->respond(function ($req, $res, $svc, $app) {
 
   });
 
-  $app->register('template', function () {
+  $app->register('template', function () use (&$app) {
 
-  	return new TemplateEngine;
+  	return new TemplateEngine($app);
 
   });
 
