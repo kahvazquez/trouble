@@ -17,7 +17,7 @@ if (strpos($_SERVER["REQUEST_URI"], '/index.php') !== FALSE) {
 
 $klein = new \Klein\Klein();
 
-$klein->respond(function ($req, $res, $svc, $app) {
+$klein->respond(function ($req, $res, $svc, $app) use ($baseUrl) {
 
   $app->register('db', function () {
 
@@ -25,9 +25,9 @@ $klein->respond(function ($req, $res, $svc, $app) {
 
   });
 
-  $app->register('template', function () use (&$app) {
+  $app->register('template', function () use (&$app, $baseUrl) {
 
-  	return new TemplateEngine($app);
+  	return new TemplateEngine($baseUrl, $app);
 
   });
 
