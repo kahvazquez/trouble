@@ -49,11 +49,12 @@ class TemplateEngine {
 		
 		$data['pathInfo'] = rtrim($_SERVER['PATH_INFO'], '/');
 		
-		$data['queryString'] = $_SERVER['QUERY_STRING'];
+		$data['queryString'] = empty($_SERVER['QUERY_STRING']) 
+			? '' : $_SERVER['QUERY_STRING'];
 		 
 		$data['pages'] = $this->getPages();
 
-		return $this->engine->renderToString("templates/$name.latte", $data);
+		return $this->engine->renderToString("templates/{$name}.latte", $data);
 
 	}
 
