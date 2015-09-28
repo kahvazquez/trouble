@@ -1,0 +1,89 @@
+{layout 'index.latte'}
+
+{block content}
+<!--
+campos editáveis:
+  status
+  previsao
+  telefone
+  obs
+-->
+  <header class='page-header'>
+      <h3>
+        Editar Protocolo
+          <small class='pull-right'>
+            {date('d/m/Y', strtotime($ticket->criado_em))}
+             - #{$ticket->protocolo}
+          </small>
+      </h3>
+  </header>
+ <form class='row'>
+ <div class='col-sm-4'>
+    <div class='form-group'>
+      <label>Operadora</label>
+      <p class="form-control-static">{$ticket->operadora}</p>
+    </div>
+
+    <div class='form-group'>
+      <label>Cidade</label>
+      <p class="form-control-static">{$ticket->cidade}</p>
+    </div>
+    <div class='form-group'>
+      <label>Tipo de Problema</label>
+      <p class="form-control-static">{$ticket->tipo_problema}</p>
+    </div>
+    <div class='form-group'>
+      <label>Cliente Final</label>
+      <p class="form-control-static">{$ticket->cliente_final}</p>
+    </div>
+    <div class='form-group'>
+      <label>Designação</label>
+      <p class="form-control-static">{$ticket->designacao}</p>
+    </div>
+  </div>
+  <div class='col-sm-8'>
+
+      <div class="form-group">
+          <label>Previsão</label>
+          <input name='previsao' type="text" list='time-list' class="form-control" placeholder="07:00" value="{$ticket->previsao}">
+      </div>
+
+      <div class='form-group'>
+        <label>Status</label>
+
+        <select name='status' class="form-control">
+            <option
+                n:attr='selected => $ticket->status === $status->name'
+                n:foreach="$statuses as $status"
+              >
+              {$status->name}
+            </option>
+        </select>
+      </div>
+
+      <div class='form-group'>
+        <label>Telefone</label>
+        <input value='{$ticket->telefone}' class="form-control" name='telefone'>
+      </div>
+
+     <div class='form-group'>
+        <label>Observação</label>
+        <textarea class='form-control' name='obs'>{$ticket->obs}</textarea>
+      </div>
+
+     <div class='form-group'>
+        <label>Anexar arquivo</label>
+          <input class='form-control' type='file' name='arquivo'>
+      </div>
+</div>
+ </form>
+
+
+<datalist id='time-list'>
+  {for $hora = 0; $hora < 24; $hora++}
+    {for $minuto = 0; $minuto < 60; $minuto+=15}
+      <option value="{str_pad($hora, 2, '0', STR_PAD_LEFT)}:{str_pad($minuto, 2, '0', STR_PAD_LEFT)}">
+    {/for}
+  {/for}
+</datalist>
+{/block}

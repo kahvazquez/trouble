@@ -46,4 +46,7 @@ $klein->respond('GET', "{$baseUrl}/tickets?/?",
 $klein->respond('GET', "{$baseUrl}/tickets?/relatorio/?",
   Tickets::xls());
 
+$klein->respond('GET', "{$baseUrl}/ticket/[:id]/?",
+  Tickets::editar());
+
 $klein->dispatch();

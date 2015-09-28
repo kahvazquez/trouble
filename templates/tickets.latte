@@ -3,13 +3,13 @@
 {block content}
 
 	<section class='clearfix'>
-		
+
 		<a class='btn btn-default' target='_blank' href="{$pathInfo}/relatorio/?{$queryString}">
 			Relatorio
 		</a>
-		
+
 		{include 'filtro-cidade.latte'}
-		
+
 	</section>
 
 	<hr/>
@@ -28,10 +28,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			
+
 			{foreach $tickets as $ticket}
 				<tr>
-					<td>{$ticket->protocolo}</td>
+					<td>
+                                  <a href='ticket/{$ticket->id}'>
+                                      {$ticket->protocolo}
+                                  </a>
+                              </td>
 					<td>{$ticket->operadora}</td>
 					<td>{$ticket->status}</td>
 					<td>{$ticket->cidade}</td>
@@ -41,8 +45,8 @@
 					<td>{$ticket->date}</td>
 				</tr>
 			{/foreach}
-			
+
 		</tbody>
 	</table>
-	
+
 {/block}

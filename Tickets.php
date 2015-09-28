@@ -3,28 +3,28 @@
 namespace ksv\trouble;
 
 class Tickets {
-	
+
 	public static function filter($req, $app) {
-		
+
 		$tickets = $app->db->t_ticket;
-		
-		$cidade = $req->param('cidade'); 
-		
+
+		$cidade = $req->param('cidade');
+
 		if ($cidade) {
 			$tickets->where_equal('cidade', strtoupper($cidade));
 		}
-		
+
 		return $tickets->find_many();
-		
+
 	}
 
 	public static function xls() {
 		return function ($req, $res, $svc, $app) {
-			
+
 			$time = time();
 			$date = date('d-m-Y');
 			$exportFile = __DIR__ . "/xls/relatorio-tickets-{$time}.xlsx";
-			
+
 			$headers = [
 				[
 					'Protocolo',
@@ -37,7 +37,7 @@ class Tickets {
 					'Data'
 				]
 			];
-			
+
 			$rows = array_map(function ($ticket) {
 
 				return [
@@ -52,33 +52,48 @@ class Tickets {
 				];
 
 			}, Tickets::filter($req, $app));
-			
+
 			$writer = new \XLSXWriter();
 			$writer->writeSheet($headers + $rows, 'Relatório ' . $date);
 			$writer->setAuthor('Sim TV - Trouble Ticket');
 			$writer->writeToFile($exportFile);
-			
+
 			$res->file($exportFile, "Relatório Tickets {$date}.xlsx");
-			
+
 		};
-	}	
-	
-	
-	
+	}
+
+
+
 	public static function lista() {
-		
+
 		return function ($req, $res, $svc, $app) {
-			
+
 			$html = $app->template->render('tickets', [
 				'selected' => (object)['cidade' => $req->param('cidade')],
 				'tickets' => Tickets::filter($req, $app),
 				'cidades' => $app->db->cidade->find_many()
 			]);
-		
+
 			$res->body($html)->send();
-	
+
 		};
-		
+
 	}
-	
+
+  public static function editar() {
+
+    return function ($req, $res, $svc, $app) {
+
+      $html = $app->template->render('editar-ticket', [
+        'statuses' => $app->db->status->find_many(),
+        'ticket' => $app->db->t_ticket->find_one($req->id)
+      ]);
+
+      $res->body($html)->send();
+
+    };
+
+  }
+
 }
