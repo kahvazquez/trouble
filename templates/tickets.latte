@@ -42,7 +42,7 @@
 					<td>{$ticket->tipo_problema}</td>
 					<td>{$ticket->designacao}</td>
 					<td>{$ticket->cliente_final}</td>
-					<td>{$ticket->date}</td>
+					<td>{date('d/m/Y', strtotime($ticket->criado_em))}</td>
 				</tr>
 			{/foreach}
 

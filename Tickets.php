@@ -48,7 +48,7 @@ class Tickets {
 					$ticket->tipo_problema,
 					$ticket->designacao,
 					$ticket->cliente_final,
-					$ticket->date
+					date('d/m/Y', strtotime($ticket->criado_em))
 				];
 
 			}, Tickets::filter($req, $app));
