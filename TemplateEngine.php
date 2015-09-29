@@ -17,6 +17,11 @@ class TemplateEngine
 
     $this->app = $app;
     $this->engine = new Engine;
+
+    $this->engine->addFilter('pad_left', function ($str, $pad = '0', $len = 2) {
+      return str_pad($str, $len, $pad, STR_PAD_LEFT);
+    });
+
     $this->engine->setTempDirectory('cache');
 
   }
@@ -44,6 +49,8 @@ class TemplateEngine
 
     require_once 'assets.php';
 
+    global $baseUrl;
+
     $layoutAssets = empty($assets[$name]) ? pageAssets() : $assets[$name];
 
     $layoutAssets['css'] += $assets['css'];
@@ -51,7 +58,7 @@ class TemplateEngine
 
     $data = array_merge($layoutAssets, $data);
 
-    $data['baseUrl'] = $this->baseUrl;
+    $data['baseUrl'] = $baseUrl;
 
     $data['pathInfo'] = rtrim($_SERVER['PATH_INFO'], '/');
 

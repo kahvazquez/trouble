@@ -1,0 +1,43 @@
+<datalist id='time-list'>
+  {for $hora = 0; $hora < 24; $hora++}
+    {for $minuto = 0; $minuto < 60; $minuto += 15}
+      <option value="{$hora|pad_left}:{$minuto|pad_left}"/>
+    {/for}
+  {/for}
+</datalist>
+
+<div class='form-group'>
+    <label>Previsão</label>
+    <input name='previsao' type='text' list='time-list' class='form-control' value='{$ticket->previsao}'>
+</div>
+
+<div class='form-group'>
+  <label>Status</label>
+
+  <select name='status' class='form-control'>
+    <option
+      n:attr='selected => $ticket->status === $status->name'
+      n:foreach='$statuses as $status'>
+        {$status->name}
+    </option>
+  </select>
+</div>
+
+<div class='form-group'>
+  <label>Telefone</label>
+  <input value='{$ticket->telefone}' class='form-control' name='telefone'>
+</div>
+
+<div class='form-group'>
+  <label>Observação</label>
+  <textarea class='form-control' name='obs'>{$ticket->obs}</textarea>
+</div>
+
+<!-- <div class='form-group'>
+  <label>Anexar arquivo</label>
+    <input class='form-control' type='file' name='arquivo'>
+</div>
+-->
+<button type='submit' class='btn btn-success btn-sm pull-right'>
+  Salvar
+</button>
