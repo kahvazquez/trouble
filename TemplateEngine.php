@@ -1,62 +1,67 @@
 <?php
 
 namespace ksv\trouble;
+
 use \Latte\Engine;
 
 require_once 'vendor/autoload.php';
 
-class TemplateEngine {
+class TemplateEngine
+{
 
-	private $engine;
-	private $app;
+  private $engine;
+  private $app;
 
-	public function __construct($app) {
+  public function __construct($app)
+  {
 
-		$this->app = $app;
-		$this->engine = new Engine;
-		$this->engine->setTempDirectory('cache');
+    $this->app = $app;
+    $this->engine = new Engine;
+    $this->engine->setTempDirectory('cache');
 
-	}
+  }
 
-	private function getPages() {
+  private function getPages()
+  {
 
-		$pages = $this->app->db->
-			page->where_equal('menu', 1)->
-			find_many();
+    $pages = $this->app->db->
+    page->where_equal('menu', 1)->
+    find_many();
 
-		return array_map(function ($page) {
+    return array_map(function ($page) {
 
-			global $baseUrl;
+      global $baseUrl;
 
-			$page->url = "{$baseUrl}/{$page->id}";
-			return $page;
+      $page->url = "{$baseUrl}/{$page->id}";
+      return $page;
 
-		}, $pages);
+    }, $pages);
 
-	}
+  }
 
-	public function render($name, $data = []) {
+  public function render($name, $data = [])
+  {
 
-		require_once 'assets.php';
+    require_once 'assets.php';
 
-		$layoutAssets = empty($assets[$name]) ? pageAssets(): $assets[$name];
+    $layoutAssets = empty($assets[$name]) ? pageAssets() : $assets[$name];
 
-		$layoutAssets['css'] += $assets['css'];
-		$layoutAssets['js'] += $assets['js'];
+    $layoutAssets['css'] += $assets['css'];
+    $layoutAssets['js'] += $assets['js'];
 
-		$data = array_merge($layoutAssets, $data);
+    $data = array_merge($layoutAssets, $data);
 
-		$data['baseUrl'] = $this->baseUrl;
+    $data['baseUrl'] = $this->baseUrl;
 
-		$data['pathInfo'] = rtrim($_SERVER['PATH_INFO'], '/');
+    $data['pathInfo'] = rtrim($_SERVER['PATH_INFO'], '/');
 
-		$data['queryString'] = empty($_SERVER['QUERY_STRING'])
-			? '' : $_SERVER['QUERY_STRING'];
+    $data['queryString'] = empty($_SERVER['QUERY_STRING'])
+      ? '' : $_SERVER['QUERY_STRING'];
 
-		$data['pages'] = $this->getPages();
+    $data['pages'] = $this->getPages();
 
-		return $this->engine->renderToString("templates/{$name}.latte", $data);
+    return $this->engine->renderToString("templates/{$name}.latte", $data);
 
-	}
+  }
 
 }

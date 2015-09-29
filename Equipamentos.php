@@ -2,30 +2,32 @@
 
 namespace ksv\trouble;
 
-class Equipamentos {
-	
-	public static function lista() {
+class Equipamentos
+{
 
-		return function ($req, $res, $svc, $app) {
+  public static function lista()
+  {
 
-			$cidades = $app->db->cidade->find_many();
-			$equipamentos = $app->db->equipamentos;
-			$cidade = $req->param('cidade'); 
+    return function ($req, $res, $svc, $app) {
 
-			if ($cidade) {
-				$equipamentos->where_equal('cidade', strtoupper($cidade));
-			}
+      $cidades = $app->db->cidade->find_many();
+      $equipamentos = $app->db->equipamento;
+      $cidade = $req->param('cidade');
 
-			$html = $app->template->render('equipamentos', [
-				'selected' => (object)['cidade' => $cidade],
-				'cidades' => $cidades,
-				'equipamentos' => $equipamentos->find_many()
-			]);
+      if ($cidade) {
+        $equipamentos->where_equal('cidade', strtoupper($cidade));
+      }
 
-			$res->body($html)->send();
-	
-		};
-		
-	}
-	
+      $html = $app->template->render('equipamentos', [
+        'selected' => (object)['cidade' => $cidade],
+        'cidades' => $cidades,
+        'equipamentos' => $equipamentos->find_many()
+      ]);
+
+      $res->body($html)->send();
+
+    };
+
+  }
+
 }

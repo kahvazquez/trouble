@@ -4,18 +4,20 @@ namespace ksv\trouble;
 
 require_once 'vendor/autoload.php';
 
-class Rotas {
-	
-	public static function raiz() {
+class Rotas
+{
 
-		return function ($req, $res, $svc, $app) {
+  public static function raiz()
+  {
 
-			$html = $app->template->render('home');
+    return function ($req, $res, $svc, $app) {
 
-			$res->body($html)->send();
+      $html = $app->template->render('home');
 
-		};
+      $res->body($html)->send();
 
-	}
-	
+    };
+
+  }
+
 }

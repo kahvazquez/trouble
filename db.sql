@@ -102,8 +102,8 @@ INSERT INTO `clienteseth` (`id`, `cidade`, `status`, `contrato`, `designacao`, `
 (1,	'REC',	'Ativo',	'2015',	'TVC-LDF-2015-TIM',	'MC DONALDS',	'30M',	'TIM',	'RUA A',	'2015-05-25',	'CMETH',	'Fast Ethernet',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'2015-05-25',	'2015-05-25'),
 (2,	'REC',	'Ativo',	'2015',	'TVC-LDF-2015-TIM',	'MC DONALDS',	'30M',	'TIM',	'RUA A',	'2015-05-25',	'CMETH',	'Fast Ethernet',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'',	'2015-05-25',	'2015-05-25');
 
-DROP TABLE IF EXISTS `equipamentos`;
-CREATE TABLE `equipamentos` (
+DROP TABLE IF EXISTS `equipamento`;
+CREATE TABLE `equipamento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cidade` varchar(10) NOT NULL,
   `ident` varchar(50) NOT NULL,
@@ -117,10 +117,10 @@ CREATE TABLE `equipamentos` (
   `senha` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cidade` (`cidade`),
-  CONSTRAINT `equipamentos_ibfk_1` FOREIGN KEY (`cidade`) REFERENCES `cidade` (`id`)
+  CONSTRAINT `equipamento_ibfk_1` FOREIGN KEY (`cidade`) REFERENCES `cidade` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `equipamentos` (`id`, `cidade`, `ident`, `equipamento`, `fabricante`, `localizacao`, `tipo_acesso`, `ip`, `ip_interno`, `login`, `senha`) VALUES
+INSERT INTO `equipamento` (`id`, `cidade`, `ident`, `equipamento`, `fabricante`, `localizacao`, `tipo_acesso`, `ip`, `ip_interno`, `login`, `senha`) VALUES
 (1,	'REC',	'REC-MMO63E1-0001',	'MMO63E1',	'ASGA',	'REC_POP_TVC_01 (HEADEND)',	'Telnet / SDH Manager',	'192.168.22.17',	'10.12.0.1',	'',	'9245'),
 (2,	'REC',	'REC-MMO63E1-0003',	'MMO63E1',	'ASGA',	'REC_POP_TIM_CL',	'Telnet / SDH Manager',	'192.168.0.3',	'10.14.0.2',	'admin',	'admin'),
 (3,	'REC',	'REC-MMO63E1-0004',	'MMO63E1',	'ASGA',	'REC_POP_TIM_JF',	'Telnet / SDH Manager',	'',	'10.14.0.3',	'admin',	'admin'),
@@ -451,16 +451,21 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 (3,	'editar tickets'),
 (4,	'editar equipamentos');
 
-DROP TABLE IF EXISTS `trouble_mail`;
-CREATE TABLE `trouble_mail` (
-  `email` varchar(100) NOT NULL
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `trouble_mail` (`email`) VALUES
-('kaka.vazquez@gmail.com');
+INSERT INTO `status` (`id`, `name`) VALUES
+(1,	'Stop Time'),
+(2,	'Em Andamento'),
+(3,	'Agendado'),
+(4,	'Finalizado');
 
-DROP TABLE IF EXISTS `t_ticket`;
-CREATE TABLE `t_ticket` (
+DROP TABLE IF EXISTS `ticket`;
+CREATE TABLE `ticket` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `protocolo` varchar(60) NOT NULL,
   `operadora` varchar(60) NOT NULL,
@@ -475,31 +480,32 @@ CREATE TABLE `t_ticket` (
   `date` date NOT NULL,
   `arquivo` varchar(200) DEFAULT NULL,
   `tec_responsavel` varchar(20) NOT NULL,
+  `criado_em` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `cidade` (`cidade`),
-  CONSTRAINT `t_ticket_ibfk_1` FOREIGN KEY (`cidade`) REFERENCES `cidade` (`id`)
+  CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`cidade`) REFERENCES `cidade` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `t_ticket` (`id`, `protocolo`, `operadora`, `previsao`, `status`, `cidade`, `tipo_problema`, `cliente_final`, `designacao`, `telefone`, `obs`, `date`, `arquivo`, `tec_responsavel`) VALUES
-(1,	'201573589',	'TELEFONICA',	'4:00',	'Stop Time',	'REC',	'INDISPONIVEL',	'ATENTO',	'REC-LDF-0350-TELEFONICA',	'21135541',	'CLIENTE INFORMA QUE CIRCUITO FORA',	'0000-00-00',	'',	'KARINE VAZQUEZ'),
-(2,	'201550040',	'TELEFONICA',	'03:00',	'Em Andamento',	'REC',	'Indisponível',	'ATENTO',	'REC-LDF-0300-TELEFONICA',	'2121125541',	'Circuito fora',	'2015-01-30',	'',	'Karine Vazquez'),
-(3,	'201548965',	'TVC',	'01:00',	'Stop Time',	'JFA',	'Intermitente',	'C&A',	'JFA-LDF-2015787',	'',	'',	'2015-01-30',	'',	'JANSEN'),
-(4,	'124654789',	'TELEFONICA',	'01:00',	'Stop Time',	'CBA',	'Taxando erro de CRC',	'ATENTO',	'REC-LDF-0215-TELEFONICA',	'2121458965',	'TESTE',	'2015-01-30',	'',	'KARINE VAZQUEZ'),
-(5,	'201502021',	'INTELIG',	'01:00',	'Em Andamento',	'FSA',	'Indisponível',	'INTELIG',	'REC-LDF-00222-INTELIG',	'2121135541',	'TESTE',	'2015-02-02',	'',	''),
-(6,	'201589654',	'INTELIG',	'13:00',	'Agendado',	'REC',	'Indisponível',	'TVCIDADE',	'REC-LDF-0158-TVC',	'2121458963',	'TESTE',	'2015-02-02',	'',	'KARINE VAZQUEZ'),
-(7,	'201520108',	'TVC',	'00:00',	'Agendado',	'FSA',	'Taxando erro de CRC',	'tvc',	'REC-LDF-0259-tvc',	'',	'Cliente informa que ax travado',	'2015-02-23',	'',	'Erisvan'),
-(8,	'201589635',	'INTELIG',	'01:59',	'Stop Time',	'NIT',	'Indisponível',	'CASAS BAHIA',	'REC-LDF-02588',	'212589654',	'Cliente informa que circuito indisponível',	'2015-02-23',	'',	'karine'),
-(9,	'201550044',	'telefonica',	'04:58',	'Em Andamento',	'CMR',	'Indisponível',	'TELEFONICA',	'REC-LDF-0259-TELEFONICA',	'2158965478',	'REC-LDF-0259-TELEFONICA',	'2015-02-23',	'',	'karine'),
-(10,	'201589632',	'TVC',	'00:00',	'Em Andamento',	'NIT',	'Indisponível',	'TVC',	'TVC',	'TVC',	'TVC',	'2015-02-24',	'',	'TVC'),
-(11,	'201541025',	'TVC',	'21:23',	'Em Andamento',	'NIT',	'Taxando erro de CRC',	'TVC',	'TVC',	'',	'Cliente informa que circuito indisponível',	'2015-02-24',	'',	'RAFAEL'),
-(12,	'201512345',	'Global',	'01:59',	'Em Andamento',	'JFA',	'Indisponível',	'Leader',	'JFA-LDF-2015789',	'201512345',	'201512345',	'2015-02-24',	'',	'JANSEN'),
-(13,	'201512346',	'TVC',	'14:08',	'Em Andamento',	'JFA',	'Indisponível',	'',	'201512345',	'201512345',	'Cliente informa que circuito indisponível',	'2015-02-24',	'',	'JANSEN'),
-(14,	'201514785',	'Global',	'12:00',	'Em Andamento',	'SSA',	'Indisponível',	'',	'SSA-LDF-201589',	'',	'Cliente informa que ax travado',	'2015-02-24',	'',	'SAULO'),
-(15,	'201512348',	'INTELIG',	'17:20',	'Em Andamento',	'REC',	'Indisponível',	'IND. DE ALIMENTOS',	'REC-LDF-02580',	'',	'Cliente informa que circuito indisponível',	'2015-02-24',	'',	'PATRICIA'),
-(16,	'201512347',	'TVC',	'23:08',	'Em Andamento',	'NIT',	'Indisponível',	'MARALCO',	'NIT-LDF-1258965',	'',	'Cliente informa que circuito indisponível',	'2015-02-24',	'',	'ALEXANDRE'),
-(17,	'201520198',	'LEVEL 3',	'01:59',	'Em Andamento',	'NIT',	'Indisponível',	'SANSUNG',	'NIT-LDF-2015078',	'',	'Cliente informa que ax travado',	'2015-03-03',	'',	'ALEXANDRE'),
-(26,	'201550043',	'TELEFONICA',	'14:11',	'Em Andamento',	'REC',	'Indisponível',	'PATRICIA LTDA',	'REC-LDF-00300-TELEFONICA',	'212345678',	'Cliente patricia boladona',	'2015-04-07',	NULL,	'Karine Linda'),
-(28,	'201550093',	'Global',	'01:01',	'Em Andamento',	'NIT',	'Indisponível',	'MC DONALD\'S',	'NIT-LDF-2015003',	'584384',	'Cliente informa que circuito indisponível',	'2015-07-13',	NULL,	'karine');
+INSERT INTO `ticket` (`id`, `protocolo`, `operadora`, `previsao`, `status`, `cidade`, `tipo_problema`, `cliente_final`, `designacao`, `telefone`, `obs`, `date`, `arquivo`, `tec_responsavel`, `criado_em`) VALUES
+(1,	'201573589',	'TELEFONICA',	'4:00',	'Stop Time',	'REC',	'INDISPONIVEL',	'ATENTO',	'REC-LDF-0350-TELEFONICA',	'21135541',	'CLIENTE INFORMA QUE CIRCUITO FORA',	'0000-00-00',	'',	'KARINE VAZQUEZ',	'2015-09-29 17:28:56'),
+(2,	'201550040',	'TELEFONICA',	'03:00',	'Em Andamento',	'REC',	'Indisponível',	'ATENTO',	'REC-LDF-0300-TELEFONICA',	'2121125541',	'Circuito fora',	'2015-01-30',	'',	'Karine Vazquez',	'2015-09-29 17:28:56'),
+(3,	'201548965',	'TVC',	'01:00',	'Stop Time',	'JFA',	'Intermitente',	'C&A',	'JFA-LDF-2015787',	'',	'',	'2015-01-30',	'',	'JANSEN',	'2015-09-29 17:28:56'),
+(4,	'124654789',	'TELEFONICA',	'01:00',	'Stop Time',	'CBA',	'Taxando erro de CRC',	'ATENTO',	'REC-LDF-0215-TELEFONICA',	'2121458965',	'TESTE',	'2015-01-30',	'',	'KARINE VAZQUEZ',	'2015-09-29 17:28:56'),
+(5,	'201502021',	'INTELIG',	'01:00',	'Em Andamento',	'FSA',	'Indisponível',	'INTELIG',	'REC-LDF-00222-INTELIG',	'2121135541',	'TESTE',	'2015-02-02',	'',	'',	'2015-09-29 17:28:56'),
+(6,	'201589654',	'INTELIG',	'13:00',	'Agendado',	'REC',	'Indisponível',	'TVCIDADE',	'REC-LDF-0158-TVC',	'2121458963',	'TESTE',	'2015-02-02',	'',	'KARINE VAZQUEZ',	'2015-09-29 17:28:56'),
+(7,	'201520108',	'TVC',	'00:00',	'Agendado',	'FSA',	'Taxando erro de CRC',	'tvc',	'REC-LDF-0259-tvc',	'',	'Cliente informa que ax travado',	'2015-02-23',	'',	'Erisvan',	'2015-09-29 17:28:56'),
+(8,	'201589635',	'INTELIG',	'01:59',	'Stop Time',	'NIT',	'Indisponível',	'CASAS BAHIA',	'REC-LDF-02588',	'212589654',	'Cliente informa que circuito indisponível',	'2015-02-23',	'',	'karine',	'2015-09-29 17:28:56'),
+(9,	'201550044',	'telefonica',	'04:58',	'Em Andamento',	'CMR',	'Indisponível',	'TELEFONICA',	'REC-LDF-0259-TELEFONICA',	'2158965478',	'REC-LDF-0259-TELEFONICA',	'2015-02-23',	'',	'karine',	'2015-09-29 17:28:56'),
+(10,	'201589632',	'TVC',	'00:00',	'Em Andamento',	'NIT',	'Indisponível',	'TVC',	'TVC',	'TVC',	'TVC',	'2015-02-24',	'',	'TVC',	'2015-09-29 17:28:56'),
+(11,	'201541025',	'TVC',	'21:23',	'Em Andamento',	'NIT',	'Taxando erro de CRC',	'TVC',	'TVC',	'',	'Cliente informa que circuito indisponível',	'2015-02-24',	'',	'RAFAEL',	'2015-09-29 17:28:56'),
+(12,	'201512345',	'Global',	'01:59',	'Em Andamento',	'JFA',	'Indisponível',	'Leader',	'JFA-LDF-2015789',	'201512345',	'201512345',	'2015-02-24',	'',	'JANSEN',	'2015-09-29 17:28:56'),
+(13,	'201512346',	'TVC',	'14:08',	'Em Andamento',	'JFA',	'Indisponível',	'',	'201512345',	'201512345',	'Cliente informa que circuito indisponível',	'2015-02-24',	'',	'JANSEN',	'2015-09-29 17:28:56'),
+(14,	'201514785',	'Global',	'12:00',	'Em Andamento',	'SSA',	'Indisponível',	'',	'SSA-LDF-201589',	'',	'Cliente informa que ax travado',	'2015-02-24',	'',	'SAULO',	'2015-09-29 17:28:56'),
+(15,	'201512348',	'INTELIG',	'17:20',	'Em Andamento',	'REC',	'Indisponível',	'IND. DE ALIMENTOS',	'REC-LDF-02580',	'',	'Cliente informa que circuito indisponível',	'2015-02-24',	'',	'PATRICIA',	'2015-09-29 17:28:56'),
+(16,	'201512347',	'TVC',	'23:08',	'Em Andamento',	'NIT',	'Indisponível',	'MARALCO',	'NIT-LDF-1258965',	'',	'Cliente informa que circuito indisponível',	'2015-02-24',	'',	'ALEXANDRE',	'2015-09-29 17:28:56'),
+(17,	'201520198',	'LEVEL 3',	'01:59',	'Em Andamento',	'NIT',	'Indisponível',	'SANSUNG',	'NIT-LDF-2015078',	'',	'Cliente informa que ax travado',	'2015-03-03',	'',	'ALEXANDRE',	'2015-09-29 17:28:56'),
+(26,	'201550043',	'TELEFONICA',	'14:11',	'Em Andamento',	'REC',	'Indisponível',	'PATRICIA LTDA',	'REC-LDF-00300-TELEFONICA',	'212345678',	'Cliente patricia boladona',	'2015-04-07',	NULL,	'Karine Linda',	'2015-09-29 17:28:56'),
+(28,	'201550093',	'Global',	'01:01',	'Em Andamento',	'NIT',	'Indisponível',	'MC DONALD\'S',	'NIT-LDF-2015003',	'584384',	'Cliente informa que circuito indisponível',	'2015-07-13',	NULL,	'karine',	'2015-09-29 17:28:56');
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -533,4 +539,4 @@ CREATE TABLE `user_group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2015-09-27 22:02:20
+-- 2015-09-29 20:32:45
