@@ -4,6 +4,7 @@
 
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+		<meta name='google-signin-client_id' content='{$google->clientId}'>
 
 		<title>
       SIM TV - Trouble Ticket
@@ -15,6 +16,15 @@
 			type='text/css'
 			href='{$stylesheet}'>
 
+		<script>
+
+			var Trouble = new Object;
+
+			Trouble.google = new Object;
+			Trouble.google.clientId = {$google->clientId};
+
+		</script>
+
 	</head>
 
 	<body>
@@ -22,6 +32,14 @@
 		{include '../partials/header.latte'}
 
 		<main class='container'>
+
+			{foreach $messages as $flash}
+				<div class='alert alert-{$flash['type'] === 'error' ? 'danger' : $flash['type']}'>
+					<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+					{$flash['message']}
+				</div>
+			{/foreach}
+          
       {block content}{/block}
 		</main>
 

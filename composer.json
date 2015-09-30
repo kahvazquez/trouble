@@ -3,6 +3,8 @@
         "j4mie/idiorm": "^1.5",
         "klein/klein": "^2.1",
         "latte/latte": "^2.3",
-        "mk-j/php_xlsxwriter": "^0.22.0"
+        "mk-j/php_xlsxwriter": "^0.22.0",
+        "google/apiclient": "^1.1",
+        "mckay/flash": "^1.0"
     }
 }

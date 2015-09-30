@@ -8,8 +8,10 @@ if (strpos($_SERVER["REQUEST_URI"], '/index.php') !== FALSE) {
   $baseUrl .= '/index.php';
 }
 
-require 'Rotas.php';
+require 'Base.php';
 require 'Equipamentos.php';
+require 'User.php';
+require 'Config.php';
 require 'Tickets.php';
 require 'Db.php';
 require 'TemplateEngine.php';
@@ -20,13 +22,25 @@ error_reporting(0);
 $klein = new \Klein\Klein();
 $klein->respond(function ($req, $res, $svc, $app) {
 
-  $app->register('db', function () {
+  $app->register('config', function () {
 
-    return new Db;
+    return new Config;
 
   });
 
-  $app->register('template', function () use ($app) {
+  $app->register('db', function () use (&$app) {
+
+    return new Db($app);
+
+  });
+
+  $app->register('user', function () use(&$app) {
+
+    return new User($app);
+
+  });
+
+  $app->register('template', function () use (&$app) {
 
     return new TemplateEngine($app);
 
@@ -35,7 +49,13 @@ $klein->respond(function ($req, $res, $svc, $app) {
 });
 
 $klein->respond('GET', "{$baseUrl}/?",
-  Rotas::raiz());
+  Base::home());
+
+$klein->respond('POST', "{$baseUrl}/entrar/google/?",
+  Base::loginGoogle());
+
+$klein->respond('GET', "{$baseUrl}/sair",
+  Base::logout());
 
 $klein->respond('GET', "{$baseUrl}/equipamentos?/?",
   Equipamentos::lista());

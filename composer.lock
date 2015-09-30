@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad2ed7f6fea70e73c0982c68ffeed0ac",
+    "hash": "ccb70dcc7249f1878957dffce5c8a54d",
     "packages": [
+        {
+            "name": "google/apiclient",
+            "version": "1.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/google/google-api-php-client.git",
+                "reference": "2bc00ec4e8fa1a5eec793d800fac339f30b730db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/2bc00ec4e8fa1a5eec793d800fac339f30b730db",
+                "reference": "2bc00ec4e8fa1a5eec793d800fac339f30b730db",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Client library for Google APIs",
+            "homepage": "http://developers.google.com/api-client-library/php",
+            "keywords": [
+                "google"
+            ],
+            "time": "2015-09-23 04:19:33"
+        },
         {
             "name": "j4mie/idiorm",
             "version": "v1.5.1",
@@ -174,6 +217,52 @@
                 "twig"
             ],
             "time": "2015-08-23 12:36:55"
+        },
+        {
+            "name": "mckay/flash",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mckay-software/flash.php.git",
+                "reference": "9af01828637bb8e18a46896dd44e501f71ebf6c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mckay-software/flash.php/zipball/9af01828637bb8e18a46896dd44e501f71ebf6c3",
+                "reference": "9af01828637bb8e18a46896dd44e501f71ebf6c3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "McKay\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Félix Saparelli",
+                    "email": "felix.saparelli@mckay.co.nz",
+                    "homepage": "https://passcod.name"
+                },
+                {
+                    "name": "McKay Software",
+                    "email": "software@mckay.co.nz"
+                }
+            ],
+            "description": "Handy flash messages.",
+            "keywords": [
+                "flash",
+                "messages",
+                "session"
+            ],
+            "time": "2015-04-30 21:38:32"
         },
         {
             "name": "mk-j/php_xlsxwriter",
