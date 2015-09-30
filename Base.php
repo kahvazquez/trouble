@@ -20,7 +20,18 @@ class Base
 
   }
 
-  public static function loginGoogle()
+  public static function entrar()
+  {
+
+    return function ($req, $res, $svc, $app) {
+
+      $res->body($app->template->render('login'))->send();
+
+    };
+
+  }
+
+  public static function autenticar()
   {
     return function ($req, $res, $svc, $app) {
 
@@ -29,6 +40,7 @@ class Base
       if (!$app->user->isLoggedIn()) {
 
         Flash::warning('Usuário não autorizado');
+        return $res->redirect('/entrar');
 
       }
 
@@ -37,7 +49,7 @@ class Base
     };
   }
 
-  public static function logout()
+  public static function sair()
   {
     return function ($req, $res, $svc, $app) {
 

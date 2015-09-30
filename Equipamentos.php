@@ -5,7 +5,7 @@ namespace ksv\trouble;
 class Equipamentos
 {
 
-  public static function lista()
+  public static function listar()
   {
 
     return function ($req, $res, $svc, $app) {

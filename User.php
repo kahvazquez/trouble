@@ -19,6 +19,7 @@ class User
 
   function __construct(&$app)
   {
+    session_start();
     $this->db = $app->db;
     $this->config = $app->config;
     $this->loadSession();
@@ -33,9 +34,9 @@ class User
   {
 
     if (!$this->session) {
-      setcookie(User::cookieName, '', 1);
+      setcookie(User::cookieName, '', 1, '/');
     } else {
-      setcookie(User::cookieName, $this->session->id, strtotime('+15 days'));
+      setcookie(User::cookieName, $this->session->id, strtotime('+15 days'), '/');
     }
 
   }
@@ -49,6 +50,7 @@ class User
   {
 
     if (!$this->getCookie()) {
+
       return;
     }
 
@@ -63,7 +65,6 @@ class User
     $expiration = strtotime($this->session->expiration);
 
     if ($expiration < time()) {
-      $this->logout();
       return;
     }
 
@@ -83,6 +84,7 @@ class User
 
   public function authorizeGoogleUser($access_code)
   {
+
     $client = new \Google_Client();
     $google = $this->config->google;
 
@@ -126,6 +128,7 @@ class User
     $this->session->expiration = date('Y-m-d H:i:s', strtotime('+1 day'));
     $this->session->save();
 
+    $this->loadUser();
     $this->setCookie();
   }
 
@@ -138,9 +141,9 @@ class User
 
     }
 
-    $this->setCookie();
     $this->session = NULL;
     $this->user = NULL;
+    $this->setCookie();
 
   }
 }

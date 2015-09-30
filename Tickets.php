@@ -67,7 +67,7 @@ class Tickets
   }
 
 
-  public static function lista()
+  public static function listar()
   {
 
     return function ($req, $res, $svc, $app) {

@@ -1,0 +1,33 @@
+{layout 'layouts/default.latte'}
+
+{block content}
+
+<form id='googleLoginForm' method='POST'>
+  <input type='hidden' name='token'>
+</form>
+
+<div class='panel panel-default'>
+
+  <div class='panel-heading'>Autenticação</div>
+
+  <div class='panel-body'>
+    Acesso restrito
+    <div class='pull-right'>
+      <div class='g-signin'
+        data-scope='email'
+        data-clientId='{$google->clientId}'
+        data-accesstype='offline'
+        data-callback='onSignInCallback'
+        data-theme='dark'
+        data-approvalprompt='force'
+        data-cookiepolicy='single_host_origin'>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+{/block}

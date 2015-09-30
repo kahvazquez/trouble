@@ -2,30 +2,6 @@
 
 {block content}
 
-	<div class='clearfix'>
-		<div class='pull-right'>
-
-			{if $user->isLoggedIn()}
-
-				<a class='btn btn-warning' href='/sair'>
-					Logout
-				</a>
-
-			{else}
-
-				<form id='googleLoginForm' action='/entrar/google' method='POST'>
-
-					<input type='hidden' name='token'>
-
-				</form>
-
-				<div id='google-signin-button'/>
-
-
-			{/if}
-		</div>
-	</div>
-
   <div class='well'>
 		zzzzzzz
 	</div>

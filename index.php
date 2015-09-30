@@ -51,17 +51,20 @@ $klein->respond(function ($req, $res, $svc, $app) {
 $klein->respond('GET', "{$baseUrl}/?",
   Base::home());
 
-$klein->respond('POST', "{$baseUrl}/entrar/google/?",
-  Base::loginGoogle());
+$klein->respond('GET', "{$baseUrl}/entrar/?",
+  Base::entrar());
+
+$klein->respond('POST', "{$baseUrl}/entrar/?",
+  Base::autenticar());
 
 $klein->respond('GET', "{$baseUrl}/sair",
-  Base::logout());
+  Base::sair());
 
 $klein->respond('GET', "{$baseUrl}/equipamentos?/?",
-  Equipamentos::lista());
+  Equipamentos::listar());
 
 $klein->respond('GET', "{$baseUrl}/tickets?/?",
-  Tickets::lista());
+  Tickets::listar());
 
 $klein->respond('GET', "{$baseUrl}/tickets?/relatorio/?",
   Tickets::xls());

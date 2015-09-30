@@ -30,9 +30,7 @@ class TemplateEngine
   private function getPages()
   {
 
-    $pages = $this->db->
-    page->where_equal('menu', 1)->
-    find_many();
+    $pages = $this->db->page->where_equal('menu', 1)->find_many();
 
     return array_map(function ($page) {
 
@@ -57,18 +55,12 @@ class TemplateEngine
     $layoutAssets['css'] += $assets['css'];
     $layoutAssets['js'] += $assets['js'];
 
-    $showLoginBt = $screen === 'home' && !$this->user->isLoggedIn();
-
-    if ($showLoginBt) {
-      $layoutAssets['js'][] = $assets['googleLoginApiJs'];
-    }
-
     $data = array_merge($layoutAssets, $data);
 
-
     $data['messages'] = Flash::all();
+    Flash::clear();
 
-    $data['user']  = $this->user;
+    $data['user'] = $this->user;
     $data['baseUrl'] = $baseUrl;
 
     $data['pathInfo'] = rtrim($_SERVER['PATH_INFO'], '/');
@@ -77,6 +69,22 @@ class TemplateEngine
       ? '' : $_SERVER['QUERY_STRING'];
 
     $data['pages'] = $this->getPages();
+
+    if ($this->user->isLoggedIn()) {
+
+      $data['pages'][] = (object)[
+        'url' => '/sair',
+        'name' => 'Logout'
+      ];
+
+    } else {
+
+      $data['pages'][] = (object)[
+        'url' => '/entrar',
+        'name' => 'Login'
+      ];
+
+    }
 
     $data['google'] = $this->config->google;
 
