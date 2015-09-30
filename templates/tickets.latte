@@ -4,9 +4,15 @@
 
 	<section class='clearfix'>
 
+    <a class='btn btn-default' href="/criar/ticket">
+      Novo
+    </a>
+
 		<a class='btn btn-default' target='_blank' href="{$pathInfo}/relatorio/?{$queryString}">
-			Relatorio
+			Gerar Relatorio
 		</a>
+
+
 
 		{include 'partials/filtro-cidade.latte'}
 
@@ -32,10 +38,10 @@
 			{foreach $tickets as $ticket}
 				<tr>
 					<td>
-                                  <a href='ticket/{$ticket->id}'>
-                                      {$ticket->protocolo}
-                                  </a>
-                              </td>
+            <a href='ticket/{$ticket->id}'>
+              {$ticket->protocolo}
+            </a>
+          </td>
 					<td>{$ticket->operadora}</td>
 					<td>{$ticket->status}</td>
 					<td>{$ticket->cidade}</td>

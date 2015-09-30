@@ -1,0 +1,46 @@
+<div class='form-group'>
+
+  <label>Operadora</label>
+
+  <select class='form-control' name='operadora' required>
+    <option value=''>- Selecionar -</option>
+    <option n:foreach='$operadoras as $operadora' value='{$operadora->name}'>
+      {$operadora->name}
+    </option>
+  </select>
+
+</div>
+
+<div class='form-group'>
+
+  <label>Cidade</label>
+
+  <select class='form-control' name='cidade' required>
+    <option value=''>- Selecionar -</option>
+    <option n:foreach='$cidades as $cidade' value='{$cidade->id}'>
+      {$cidade->name}
+    </option>
+  </select>
+
+</div>
+
+<div class='form-group'>
+
+  <label>Tipo de Problema</label>
+  <input class='form-control' type='text' name='tipo_problema' required>
+
+</div>
+
+<div class='form-group'>
+
+  <label>Cliente Final</label>
+  <input class='form-control' type='text' name='cliente_final' required>
+
+</div>
+
+<div class='form-group'>
+
+  <label>Designação</label>
+  <input class='form-control' type='text' name='designacao' required>
+
+</div>

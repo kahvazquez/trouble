@@ -1,0 +1,29 @@
+{layout 'layouts/default.latte'}
+
+{block content}
+
+  <header class='page-header'>
+    <h3>
+      Criar Protocolo
+    </h3>
+  </header>
+
+  <form class='row' method='POST'>
+
+    <div class='col-sm-6'>
+
+      {include 'partials/editar-ticker-esquerda.latte'}
+
+    </div>
+
+    <div class='col-sm-6'>
+
+      {include 'partials/editar-ticket-direita.latte'}
+
+    </div>
+
+  </form>
+
+
+
+{/block}

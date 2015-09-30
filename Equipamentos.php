@@ -12,7 +12,7 @@ class Equipamentos
 
       $cidades = $app->db->cidade->find_many();
       $equipamentos = $app->db->equipamento;
-      $cidade = $req->param('cidade');
+      $cidade = $req->cidade;
 
       if ($cidade) {
         $equipamentos->where_equal('cidade', strtoupper($cidade));

@@ -49,4 +49,13 @@ $klein->respond('GET', "{$baseUrl}/tickets?/relatorio/?",
 $klein->respond('GET', "{$baseUrl}/ticket/[:id]/?",
   Tickets::editar());
 
+$klein->respond('GET', "{$baseUrl}/criar/ticket/?",
+  Tickets::criar());
+
+$klein->respond('POST', "{$baseUrl}/criar/ticket/?",
+  Tickets::salvar());
+
+$klein->respond('POST', "{$baseUrl}/ticket/[:id]/?",
+  Tickets::salvar());
+
 $klein->dispatch();

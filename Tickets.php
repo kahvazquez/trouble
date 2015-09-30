@@ -10,7 +10,7 @@ class Tickets
 
     $tickets = $app->db->ticket;
 
-    $cidade = $req->param('cidade');
+    $cidade = $req->cidade;
 
     if ($cidade) {
       $tickets->where_equal('cidade', strtoupper($cidade));
@@ -57,7 +57,7 @@ class Tickets
       }, Tickets::filter($req, $app));
 
       $writer = new \XLSXWriter();
-      $writer->writeSheet($headers + $rows, 'Relatório ' . $date);
+      $writer->writeSheet(array_merge($headers, $rows), 'Relatório ' . $date);
       $writer->setAuthor('Sim TV - Trouble Ticket');
       $writer->writeToFile($exportFile);
 
@@ -73,7 +73,7 @@ class Tickets
     return function ($req, $res, $svc, $app) {
 
       $html = $app->template->render('tickets', [
-        'selected' => (object)['cidade' => $req->param('cidade')],
+        'selected' => (object)['cidade' => $req->cidade],
         'tickets' => Tickets::filter($req, $app),
         'cidades' => $app->db->cidade->find_many()
       ]);
@@ -98,6 +98,64 @@ class Tickets
 
     };
 
+  }
+
+  public static function criar()
+  {
+
+    return function ($req, $res, $svc, $app) {
+
+      $html = $app->template->render('criar-ticket', [
+        'operadoras' => $app->db->operadora->find_many(),
+        'cidades' => $app->db->cidade->find_many(),
+        'statuses' => $app->db->status->find_many(),
+        'ticket' => new \stdClass()
+      ]);
+
+      $res->body($html)->send();
+
+    };
+
+  }
+
+  public static function salvar()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      $newTicket = $req->paramsPost();
+      $isNew = empty($req->id);
+
+      if ($isNew) {
+        $ticket = $app->db->ticket->create();
+
+        $ticket->criado_em = date('Y-m-d H:i:s');
+        $ticket->protocolo = date('YmdHis');
+        $ticket->operadora = $newTicket->operadora;
+        $ticket->cidade = $newTicket->cidade;
+        $ticket->tipo_problema = $newTicket->tipo_problema;
+        $ticket->cliente_final = $newTicket->cliente_final;
+        $ticket->designacao = $newTicket->designacao;
+
+      } else {
+
+        $ticket = $app->db->ticket->find_one($req->id);
+
+      }
+
+      $ticket->previsao = $newTicket->previsao;
+      $ticket->status = $newTicket->status;
+      $ticket->telefone = $newTicket->telefone;
+      $ticket->obs = $newTicket->obs;
+
+      $ticket->save();
+
+      $id = $isNew
+        ? $ticket->id()
+        : $req->id;
+
+      $res->redirect("/ticket/{$id}");
+
+    };
   }
 
 }
