@@ -16,6 +16,12 @@ class Tickets
       $tickets->where_equal('cidade', strtoupper($cidade));
     }
 
+    $status = $req->status;
+
+    if ($status) {
+      $tickets->where_equal('status', $status);
+    }
+
     return $tickets->find_many();
 
   }
@@ -73,9 +79,10 @@ class Tickets
     return function ($req, $res, $svc, $app) {
 
       $html = $app->template->render('tickets', [
-        'selected' => (object)['cidade' => $req->cidade],
-        'tickets' => Tickets::filter($req, $app),
-        'cidades' => $app->db->cidade->find_many()
+        'selected' => (object)['cidade' => $req->cidade , 'status' => $req->status],
+         'tickets' => Tickets::filter($req, $app),
+        'cidades' => $app->db->cidade->find_many(),
+        'statuses' => $app->db->status->find_many()
       ]);
 
       $res->body($html)->send();
@@ -83,6 +90,7 @@ class Tickets
     };
 
   }
+
 
   public static function editar()
   {
