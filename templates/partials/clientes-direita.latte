@@ -1,0 +1,59 @@
+<div class='form-group'>
+
+     <label>Velocidade</label>
+
+            <select name='velocidade' class='form-control'>
+                        <option value=''>- Selecionar -</option>
+                        <option value='256 Kbps'>256 Kbps</option>
+                        <option value='512 Kbps'>512 Kbps</option>
+                        <option value='756 Kbps'>756 Kbps</option>
+                        <option value='1984 Kbps'>1984 Kbps</option>
+                        <option value='1M'>1M</option>
+                        <option value='2M'>2M</option>
+                        <option value='6M'>6M</option>
+                        <option value='10M'>10M</option>
+                        <option value='20M'>20M</option>
+                        <option value='30M'>30M</option>
+                        <option value='40M'>40M</option>
+                        <option value='50M'>50M</option>
+                        <option value='100M'>100M</option>
+            </select>
+
+ </div>
+
+<div class='form-group'>
+
+     <label>Operadora</label>
+
+            <select class='form-control' name='operadora' required>
+                        <option value=''>- Selecionar -</option>
+                        <option n:foreach='$operadoras as $operadora' value='{$operadora->name}'>
+                          {$operadora->name}
+                        </option>
+            </select>
+</div>
+
+<div class='form-group'>
+
+     <label>Endereço</label>
+     <input class='form-control' type='text' name='endereco' required>
+
+</div>
+
+<div class='form-group'>
+
+     <label>Equipamento</label>
+     <input class='form-control' type='text' name='equipamento' required>
+
+</div>
+
+<div class='form-group'>
+
+     <label>Data</label>
+     <input type='date' name='date'/>
+</div>
+
+
+ <button type='submit' class='btn btn-success btn-sm pull-right'>
+  Cadastrar
+</button>

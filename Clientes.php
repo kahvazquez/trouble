@@ -2,7 +2,7 @@
 
 namespace ksv\trouble;
 
-class Equipamentos
+class Clientes
 {
 
   public static function listar()
@@ -11,17 +11,17 @@ class Equipamentos
     return function ($req, $res, $svc, $app) {
 
       $cidades = $app->db->cidade->find_many();
-      $equipamentos = $app->db->equipamento;
+      $clientes = $app->db->cadcliente;
       $cidade = $req->cidade;
 
       if ($cidade) {
-        $equipamentos->where_equal('cidade', strtoupper($cidade));
+        $clientes->where_equal('cidade', strtoupper($cidade));
       }
 
-      $html = $app->template->render('equipamentos', [
+      $html = $app->template->render('clientes', [
         'selected' => (object)['cidade' => $cidade],
         'cidades' => $cidades,
-        'equipamentos' => $equipamentos->find_many()
+        'clientes' => $clientes->find_many()
       ]);
 
       $res->body($html)->send();
@@ -30,13 +30,19 @@ class Equipamentos
 
   }
 
- public function cadastrar()
+ public function criar()
 
    {
 
     return function ($req, $res, $svc, $app) {
 
-      $res->body($app->template->render('cadastrar'))->send();
+
+      $html = $app->template->render('criar-clientes', [
+       'operadoras' => $app->db->operadora->find_many(),
+       ]);
+
+      $res->body($html)->send();
+
 
     };
 

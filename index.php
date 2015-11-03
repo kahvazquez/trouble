@@ -10,6 +10,7 @@ if (strpos($_SERVER["REQUEST_URI"], '/index.php') !== FALSE) {
 
 require 'Base.php';
 require 'Equipamentos.php';
+require 'Clientes.php';
 require 'User.php';
 require 'Config.php';
 require 'Tickets.php';
@@ -62,6 +63,15 @@ $klein->respond('GET', "{$baseUrl}/sair",
 
 $klein->respond('GET', "{$baseUrl}/equipamentos?/?",
   Equipamentos::listar());
+
+$klein->respond('GET', "{$baseUrl}/cadastrar/?",
+  Equipamentos::cadastrar());
+
+$klein->respond('GET', "{$baseUrl}/clientes?/?",
+  Clientes::listar());
+
+$klein->respond('GET', "{$baseUrl}/criar/clientes/?",
+  Clientes::criar());
 
 $klein->respond('GET', "{$baseUrl}/tickets?/?",
   Tickets::listar());

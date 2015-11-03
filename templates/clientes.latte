@@ -1,0 +1,52 @@
+{layout 'layouts/default.latte'}
+
+{block content}
+
+      <section class='clearfix'>
+
+           <a class='btn btn-default' href="criar/clientes/">
+             Novo Cliente
+            </a>
+
+            {include 'partials/filtro-cidade.latte'}
+      </section>
+
+      <hr/>
+
+      <table class='table table-striped'>
+            <thead>
+                  <tr>
+                        <th>Cidade</th>
+                        <th>Contrato</th>
+                        <th>Designação</th>
+                        <th>Cliente</th>
+                        <th>Velocidade</th>
+                        <th>Operadora</th>
+                        <th>Equipamento</th>
+                        <th>Endereço</th>
+
+                  </tr>
+            </thead>
+            <tbody>
+
+                  {foreach $clientes as $cliente}
+
+                        <tr>
+
+                              <td>{$cliente->cidade}</td>
+                              <td>{$cliente->contrato}</td>
+                              <td>{$cliente->designacao}</td>
+                              <td>{$cliente->cliente}</td>
+                              <td>{$cliente->velocidade}</td>
+                              <td>{$cliente->operadora}</td>
+                              <td>{$cliente->equipamento}</td>
+                              <td>{$cliente->endereco}</td>
+
+                        </tr>
+
+                  {/foreach}
+
+            </tbody>
+      </table>
+
+{/block}
