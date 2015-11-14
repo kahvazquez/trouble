@@ -18,7 +18,7 @@ class Config
     $this->config = parse_ini_file('config.ini', true);
   }
 
-  public function __get($name)
+  function __get($name)
   {
     return (object)$this->config[$name];
   }

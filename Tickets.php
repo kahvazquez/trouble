@@ -92,7 +92,7 @@ class Tickets
   }
 
 
-  public static function editar()
+  static function editar()
   {
 
     return function ($req, $res, $svc, $app) {
@@ -108,7 +108,7 @@ class Tickets
 
   }
 
-  public static function criar()
+  static function criar()
   {
 
     return function ($req, $res, $svc, $app) {
@@ -126,7 +126,7 @@ class Tickets
 
   }
 
-  public static function salvar()
+  static function salvar()
   {
     return function ($req, $res, $svc, $app) {
 

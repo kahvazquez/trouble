@@ -5,7 +5,7 @@ namespace ksv\trouble;
 class Clientes
 {
 
-  public static function listar()
+  static function listar()
   {
 
     return function ($req, $res, $svc, $app) {
@@ -30,7 +30,7 @@ class Clientes
 
   }
 
- public function criar()
+ static function criar()
 
    {
 

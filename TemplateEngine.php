@@ -12,7 +12,7 @@ class TemplateEngine
 
   private $engine, $db, $user, $config;
 
-  public function __construct(&$app)
+  function __construct(&$app)
   {
 
     $this->db = $app->db;
@@ -43,7 +43,7 @@ class TemplateEngine
 
   }
 
-  public function render($screen, $data = [])
+  function render($screen, $data = [])
   {
 
     require_once 'assets.php';

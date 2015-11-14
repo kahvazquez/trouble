@@ -5,7 +5,7 @@ namespace ksv\trouble;
 class Equipamentos
 {
 
-  public static function listar()
+  static function listar()
   {
 
     return function ($req, $res, $svc, $app) {
@@ -30,9 +30,9 @@ class Equipamentos
 
   }
 
- public function cadastrar()
+  static function cadastrar()
 
-   {
+  {
 
     return function ($req, $res, $svc, $app) {
 

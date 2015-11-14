@@ -10,7 +10,7 @@ require_once 'vendor/autoload.php';
 class Db
 {
 
-  public function __construct(&$app)
+  function __construct(&$app)
   {
 
     $db = $app->config->db;
@@ -24,7 +24,7 @@ class Db
 
   }
 
-  public function __get($name)
+  function __get($name)
   {
     return ORM::for_table($name);
   }

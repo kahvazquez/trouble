@@ -9,7 +9,7 @@ use \McKay\Flash;
 class Base
 {
 
-  public static function home()
+  static function home()
   {
 
     return function ($req, $res, $svc, $app) {
@@ -20,7 +20,7 @@ class Base
 
   }
 
-  public static function entrar()
+  static function entrar()
   {
 
     return function ($req, $res, $svc, $app) {
@@ -31,7 +31,7 @@ class Base
 
   }
 
-  public static function autenticar()
+  static function autenticar()
   {
     return function ($req, $res, $svc, $app) {
 
@@ -49,7 +49,7 @@ class Base
     };
   }
 
-  public static function sair()
+  static function sair()
   {
     return function ($req, $res, $svc, $app) {
 

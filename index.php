@@ -1,7 +1,10 @@
 <?php
 
 namespace ksv\trouble;
+//phpinfo();
+//exit;
 
+date_default_timezone_set('America/Sao_Paulo');
 $baseUrl = '';
 
 if (strpos($_SERVER["REQUEST_URI"], '/index.php') !== FALSE) {
@@ -18,7 +21,7 @@ require 'Db.php';
 require 'TemplateEngine.php';
 require_once 'vendor/autoload.php';
 
-error_reporting(0);
+error_reporting(E_ALL);
 
 $klein = new \Klein\Klein();
 $klein->respond(function ($req, $res, $svc, $app) {
