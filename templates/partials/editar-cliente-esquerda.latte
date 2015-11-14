@@ -2,9 +2,15 @@
      <label>Cidade</label>
      <select name='cidade' class='form-control'>
             <option value=''>- Selecionar -</option>
-            <option n:attr='selected => $cliente->cidade === $cidade->id' value='{$cidade->id}'
-                                      n:foreach='$cidades as $cidade'>{$cidade->name}</option>
+
+            <option n:attr='selected => $cliente->cidade === $cidade->id'
+                    n:foreach='$cidades as $cidade'
+                    value='{$cidade->id}'>
+
+              {$cidade->name}
+
             </option>
+
         </select>
 </div>
 
