@@ -1,0 +1,32 @@
+{layout 'layouts/default.latte'}
+
+{block content}
+
+<section class='clearfix'>
+
+<header class='page-header'>
+    <h3>
+      Editar Clientes
+    </h3>
+  </header>
+
+        <form class='row' method='POST'>
+
+
+  <div class='col-sm-6'>
+
+      {include 'partials/clientes-esquerda.latte'}
+
+    </div>
+
+    <div class='col-sm-6'>
+
+      {include 'partials/clientes-direita.latte'}
+
+    </div>
+
+
+
+        </form>
+
+{/block}
