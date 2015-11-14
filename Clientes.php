@@ -39,6 +39,7 @@ class Clientes
 
       $html = $app->template->render('criar-clientes', [
        'operadoras' => $app->db->operadora->find_many(),
+       'cidades' => $app->db->cidade->find_many()
        ]);
 
       $res->body($html)->send();

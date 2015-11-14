@@ -2,16 +2,9 @@
      <label>Cidade</label>
      <select name='cidade' class='form-control'>
             <option value=''>- Selecionar -</option>
-            <option value='AJU'>Aracajú</option>
-            <option value='REC'>Recife</option>
-            <option value='SSA'>Salvador</option>
-            <option value='FSA'>Feira de Santana</option>
-            <option value='CMR'>Camaçari</option>
-            <option value='NIT'>Niteroi</option>
-            <option value='SGL'>São gonçalo</option>
-            <option value='VRD'>Volta Redonda</option>
-            <option value='CBA'>Cuiabá</option>
-            <option value='JFA'>Juiz de Fora</option>
+            <option n:foreach='$cidades as $cidade' value='{$cidade->name}'>
+                          {$cidade->name}
+            </option>
         </select>
 </div>
 
