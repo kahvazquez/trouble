@@ -35,7 +35,12 @@ class Equipamentos
 
     return function ($req, $res, $svc, $app) {
 
-      $res->body($app->template->render('cadastrar'))->send();
+      $html = $app->template->render('cadastrar-equipamento', [
+       'cidades' => $app->db->cidade->find_many(),
+       ]);
+
+      $res->body($html)->send();
+
 
     };
 
