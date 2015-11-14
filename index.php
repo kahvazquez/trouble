@@ -16,6 +16,7 @@ require 'User.php';
 require 'Config.php';
 require 'Tickets.php';
 require 'Db.php';
+require 'protege-rota.php';
 require 'TemplateEngine.php';
 require_once 'vendor/autoload.php';
 
@@ -36,7 +37,7 @@ $klein->respond(function ($req, $res, $svc, $app) {
 
   });
 
-  $app->register('user', function () use(&$app) {
+  $app->register('user', function () use (&$app) {
 
     return new User($app);
 
@@ -63,46 +64,45 @@ $klein->respond('GET', "{$baseUrl}/sair",
   Base::sair());
 
 $klein->respond('GET', "{$baseUrl}/equipamentos?/?",
-  Equipamentos::listar());
+  protege(Equipamentos::listar()));
 
 $klein->respond('GET', "{$baseUrl}/criar/equipamento/?",
-  Equipamentos::cadastrar());
+  protege(Equipamentos::cadastrar()));
 
 $klein->respond('POST', "{$baseUrl}/criar/equipamento/?",
-  Equipamentos::salvar());
+  protege(Equipamentos::salvar()));
 
 $klein->respond('GET', "{$baseUrl}/clientes?/?",
-  Clientes::listar());
+  protege(Clientes::listar()));
 
 $klein->respond('GET', "{$baseUrl}/criar/cliente/?",
-  Clientes::criar());
+  protege(Clientes::criar()));
 
 $klein->respond('GET', "{$baseUrl}/cliente/[:id]/?",
-  Clientes::editar());
-
+  protege(Clientes::editar()));
 
 $klein->respond('POST', "{$baseUrl}/criar/cliente/?",
-  Clientes::salvar());
+  protege(Clientes::salvar()));
 
 $klein->respond('POST', "{$baseUrl}/cliente/[:id]/?",
-  Clientes::salvar());
+  protege(Clientes::salvar()));
 
 $klein->respond('GET', "{$baseUrl}/tickets?/?",
-  Tickets::listar());
+  protege(Tickets::listar()));
 
 $klein->respond('GET', "{$baseUrl}/tickets?/relatorio/?",
-  Tickets::xls());
+  protege(Tickets::xls()));
 
 $klein->respond('GET', "{$baseUrl}/ticket/[:id]/?",
-  Tickets::editar());
+  protege(Tickets::editar()));
 
 $klein->respond('GET', "{$baseUrl}/criar/ticket/?",
-  Tickets::criar());
+  protege(Tickets::criar()));
 
 $klein->respond('POST', "{$baseUrl}/criar/ticket/?",
-  Tickets::salvar());
+  protege(Tickets::salvar()));
 
 $klein->respond('POST', "{$baseUrl}/ticket/[:id]/?",
-  Tickets::salvar());
+  protege(Tickets::salvar()));
 
 $klein->dispatch();

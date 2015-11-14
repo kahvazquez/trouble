@@ -68,10 +68,9 @@ class TemplateEngine
     $data['queryString'] = empty($_SERVER['QUERY_STRING'])
       ? '' : $_SERVER['QUERY_STRING'];
 
-    $data['pages'] = $this->getPages();
-
     if ($this->user->isLoggedIn()) {
 
+      $data['pages'] = $this->getPages();
       $data['pages'][] = (object)[
         'url' => '/sair',
         'name' => 'Logout'
@@ -79,10 +78,10 @@ class TemplateEngine
 
     } else {
 
-      $data['pages'][] = (object)[
+      $data['pages'] = [(object)[
         'url' => '/entrar',
         'name' => 'Login'
-      ];
+      ]];
 
     }
 
