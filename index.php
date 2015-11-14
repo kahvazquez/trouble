@@ -1,8 +1,6 @@
 <?php
 
 namespace ksv\trouble;
-//phpinfo();
-//exit;
 
 date_default_timezone_set('America/Sao_Paulo');
 $baseUrl = '';

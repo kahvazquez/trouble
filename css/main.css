@@ -1,3 +1,7 @@
+.navbar.navbar-default {
+  border-radius: 0 !important;
+}
+
 .navbar-brand > img {
   display: inline-block;
   height: 30px;
