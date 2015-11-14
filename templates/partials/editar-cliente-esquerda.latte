@@ -1,0 +1,37 @@
+<div class='form-group'>
+     <label>Cidade</label>
+     <select name='cidade' class='form-control'>
+            <option value=''>- Selecionar -</option>
+            <option n:attr='selected => $cliente->cidade === $cidade->id' value='{$cidade->id}'
+                                      n:foreach='$cidades as $cidade'>{$cidade->name}</option>
+            </option>
+        </select>
+</div>
+
+<div class='form-group'>
+     <label>Status</label>
+      <select name='status' class='form-control'>
+            <option value=''>- Selecionar -</option>
+            <option n:attr='selected => $cliente->status === "Ativo"'>Ativo</option>
+            <option n:attr='selected => $cliente->status === "Em Ativação"'>Em Ativação</option>
+            <option n:attr='selected => $cliente->status === "Desativado"'>Desativado</option>
+        </select>
+</div>
+
+<div class='form-group'>
+     <label>Contrato</label>
+     <input class='form-control' type='text' name='contrato' value='{$cliente->contrato}' required>
+</div>
+
+<div class='form-group'>
+
+     <label>Designacao</label>
+     <input class='form-control' type='text' name='designacao' value='{$cliente->designacao}' required>
+</div>
+
+<div class='form-group'>
+
+     <label>Cliente</label>
+     <input class='form-control' type='text' name='cliente' value='{$cliente->cliente}' required>
+
+</div>
