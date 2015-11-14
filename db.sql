@@ -7,7 +7,7 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP TABLE IF EXISTS `cadcliente`;
 CREATE TABLE `cadcliente` (
-  `id` int(11) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cidade` varchar(3) NOT NULL,
   `status` varchar(30) NOT NULL,
   `contrato` varchar(50) NOT NULL,
@@ -24,11 +24,12 @@ CREATE TABLE `cadcliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `cadcliente` (`id`, `cidade`, `status`, `contrato`, `designacao`, `cliente`, `velocidade`, `operadora`, `endereco`, `data`, `equipamento`) VALUES
-(0, 'SSA',  'Ativo',  '2015503',  'TVC-LDF-0004', 'COMERCIO DE ALIMENTOS LTDA', '50M',  'Telefônica', 'RUA JOAO ',  '2015-10-28', 'SSA-MMO21E1-0002'),
-(1, 'NIT',  'Em Ativação',  '2015500',  'TVC-LDF-0005', 'KARINE VAZQUEZ', '100M', 'Tim',  'RUA SARGENTO JOSE',  '2015-05-14', 'NIT-AX4E1-0001'),
-(2, 'REC',  'Ativo',  '2015501',  'TVC-LDF-0002', 'SIMONSEN', '256 Kbps', 'Intelig',  'PADRE MIGUEL', '2015-06-09', 'REC-AX4E1-0001'),
-(3, 'NIT',  'Desativado', '2015502',  'TVC-LDF-0001', 'LEADER', '256 Kbps', 'Telefônica', 'RUA ARTUR RIOS', '2015-09-22', 'NIT-AX4E1-0002'),
-(4, 'AJU',  'Ativo',  '2015504',  'TVC-LDF-0006', 'Sansung',  '756 Kbps', 'Global', 'Rua Presidente', '2015-10-28', 'AJU-MA10-0005');
+(1, 'SSA',  'Ativo',  '2015503',  'TVC-LDF-0004', 'COMERCIO DE ALIMENTOS LTDA', '512 Kbps', 'Intelig',  'RUA JOAO ',  '2015-10-28', 'SSA-MMO21E1-0002'),
+(2, 'NIT',  'Em Ativação',  '2015500',  'TVC-LDF-0005', 'KARINE VAZQUEZ', '100M', 'Tim',  'RUA SARGENTO JOSE',  '2015-05-14', 'NIT-AX4E1-0001'),
+(3, 'REC',  'Ativo',  '2015501',  'TVC-LDF-0002', 'SIMONSEN', '256 Kbps', 'Intelig',  'PADRE MIGUEL', '2015-06-09', 'REC-AX4E1-0001'),
+(4, 'NIT',  'Desativado', '2015502',  'TVC-LDF-0001', 'LEADER', '256 Kbps', 'Telefônica', 'RUA ARTUR RIOS', '2015-09-22', 'NIT-AX4E1-0002'),
+(5, 'AJU',  'Ativo',  '2015504',  'TVC-LDF-0006', 'Sansung',  '756 Kbps', 'Global', 'Rua Presidente', '2015-10-28', 'AJU-MA10-0005'),
+(6, 'CMR',  'Em Ativação',  '91', 'u',  'l',  '1M', 'Intelig',  'Rua Presidente', '2015-11-14', 'bruna surfistinha');
 
 DROP TABLE IF EXISTS `cidade`;
 CREATE TABLE `cidade` (
@@ -361,7 +362,8 @@ DROP TABLE IF EXISTS `operadora`;
 CREATE TABLE `operadora` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT `operadora_ibfk_1` FOREIGN KEY (`id`) REFERENCES `ticket` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `operadora` (`id`, `name`) VALUES
@@ -418,13 +420,15 @@ CREATE TABLE `session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `session` (`id`, `user`, `expiration`) VALUES
-('A58AF7EA8A9BE2FCF10AEFAD6931CD2E',  2,  '2015-10-02 00:38:48');
+('A58AF7EA8A9BE2FCF10AEFAD6931CD2E',  2,  '2015-10-02 00:38:48'),
+('C7CCA058AA9B5996803B80EF062BC730',  2,  '2015-11-15 18:58:27');
 
 DROP TABLE IF EXISTS `status`;
 CREATE TABLE `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT `status_ibfk_1` FOREIGN KEY (`id`) REFERENCES `ticket` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `status` (`id`, `name`) VALUES
@@ -453,7 +457,7 @@ CREATE TABLE `ticket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `ticket` (`id`, `protocolo`, `operadora`, `previsao`, `status`, `cidade`, `tipo_problema`, `cliente_final`, `designacao`, `telefone`, `obs`, `criado_em`) VALUES
-(1, '201573589',  'TELEFONICA', '4:00', 'Stop Time',  'REC',  'INDISPONIVEL', 'ATENTO', 'REC-LDF-0350-TELEFONICA',  '21135541', 'CLIENTE INFORMA QUE CIRCUITO FORA',  '2015-09-29 17:28:56'),
+(1, '201573589',  'TELEFONICA', '4:30', 'Stop Time',  'REC',  'INDISPONIVEL', 'ATENTO', 'REC-LDF-0350-TELEFONICA',  '21135541', 'CLIENTE INFORMA QUE CIRCUITO FORA',  '2015-09-29 17:28:56'),
 (2, '201550040',  'TELEFONICA', '03:00',  'Finalizado', 'REC',  'Indisponível', 'ATENTO', 'REC-LDF-0300-TELEFONICA',  '2121125541', 'Circuito fora// circuito normalizado.',  '2015-09-29 17:28:56'),
 (3, '201548965',  'TVC',  '01:00',  'Stop Time',  'JFA',  'Intermitente', 'C&A',  'JFA-LDF-2015787',  '', '', '2015-09-29 17:28:56'),
 (4, '124654789',  'TELEFONICA', '01:00',  'Stop Time',  'CBA',  'Taxando erro de CRC',  'ATENTO', 'REC-LDF-0215-TELEFONICA',  '2121458965', 'TESTE',  '2015-09-29 17:28:56'),
@@ -465,17 +469,14 @@ INSERT INTO `ticket` (`id`, `protocolo`, `operadora`, `previsao`, `status`, `cid
 (10,  '201589632',  'TVC',  '00:00',  'Em Andamento', 'NIT',  'Indisponível', 'TVC',  'TVC',  'TVC',  'TVC',  '2015-09-29 17:28:56'),
 (11,  '201541025',  'TVC',  '21:23',  'Em Andamento', 'NIT',  'Taxando erro de CRC',  'TVC',  'TVC',  '', 'Cliente informa que circuito indisponível',  '2015-09-29 17:28:56'),
 (12,  '201512345',  'Global', '01:59',  'Em Andamento', 'JFA',  'Indisponível', 'Leader', 'JFA-LDF-2015789',  '201512345',  '201512345',  '2015-09-29 17:28:56'),
-(13,  '201512346',  'TVC',  '14:08',  'Em Andamento', 'JFA',  'Indisponível', '', '201512345',  '201512345',  'Cliente informa que circuito indisponível',  '2015-09-29 17:28:56'),
-(14,  '201514785',  'Global', '12:00',  'Em Andamento', 'SSA',  'Indisponível', '', 'SSA-LDF-201589', '', 'Cliente informa que ax travado', '2015-09-29 17:28:56'),
 (15,  '201512348',  'INTELIG',  '17:20',  'Em Andamento', 'REC',  'Indisponível', 'IND. DE ALIMENTOS',  'REC-LDF-02580',  '', 'Cliente informa que circuito indisponível',  '2015-09-29 17:28:56'),
 (16,  '201512347',  'TVC',  '23:08',  'Em Andamento', 'NIT',  'Indisponível', 'MARALCO',  'NIT-LDF-1258965',  '', 'Cliente informa que circuito indisponível',  '2015-09-29 17:28:56'),
 (17,  '201520198',  'LEVEL 3',  '01:59',  'Em Andamento', 'NIT',  'Indisponível', 'SANSUNG',  'NIT-LDF-2015078',  '', 'Cliente informa que ax travado', '2015-09-29 17:28:56'),
 (26,  '201550043',  'TELEFONICA', '14:11',  'Em Andamento', 'REC',  'Indisponível', 'PATRICIA LTDA',  'REC-LDF-00300-TELEFONICA', '212345678',  'Cliente patricia boladona',  '2015-09-29 17:28:56'),
 (28,  '201550093',  'Global', '01:01',  'Em Andamento', 'NIT',  'Indisponível', 'MC DONALD\'S', 'NIT-LDF-2015003',  '584384', 'Cliente informa que circuito indisponível',  '2015-09-29 17:28:56'),
-(30,  '20150929220624', 'Intelig',  '06:15',  'Em Andamento', 'FSA',  'NOPE', 'Não importa',  'xxx',  '999',  'SIM E NÃO e talvez', '2015-09-29 22:06:32'),
+(30,  '20150929220624', 'Intelig',  '06:15',  'Finalizado', 'FSA',  'NOPE', 'Não importa',  'xxx',  '999',  'SIM E NÃO e talvez', '2015-09-29 22:06:32'),
 (31,  '20150929221003', 'Global', '15:15',  'Em Andamento', 'REC',  'NOPE', 'Não importa',  'xxx',  '9997', 'OBS SIM, 2', '2015-09-29 22:10:11'),
-(32,  '20151013162429', 'Intelig',  '02:00',  'Agendado', 'SSA',  'Indisponivel', 'Simonsen', 'TVC-LDF-201510', '2123456789', 'Cliente informa que modem queimado, encaminhado tecnico',  '2015-10-13 16:24:29'),
-(33,  '20151015104428', 'Telefônica', '12:30',  'Finalizado', 'NIT',  'cu sujo',  'cavalo', 'fdkjfkhdfjkd', '40028922', 'shsdjsgfdhjgfhdjgfv',  '2015-10-15 10:44:28');
+(32,  '20151013162429', 'Intelig',  '02:00',  'Agendado', 'SSA',  'Indisponivel', 'Simonsen', 'TVC-LDF-201510', '2123456789', 'Cliente informa que modem queimado, encaminhado tecnico',  '2015-10-13 16:24:29');
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -518,4 +519,26 @@ CREATE TABLE `user_group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2015-10-28 18:26:04
+DROP TABLE IF EXISTS `velocidade`;
+CREATE TABLE `velocidade` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `velocidade` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `velocidade` (`id`, `velocidade`) VALUES
+(1, '256 Kbps'),
+(2, '512 Kbps'),
+(3, '756 Kbps'),
+(4, '1984 Kbps'),
+(5, '1M'),
+(6, '2M'),
+(7, '6M'),
+(8, '10M'),
+(9, '20M'),
+(10,  '30M'),
+(11,  '40M'),
+(12,  '50M'),
+(13,  '100M');
+
+-- 2015-11-14 21:04:54
