@@ -70,6 +70,9 @@ $klein->respond('GET', "{$baseUrl}/equipamentos?/?",
 $klein->respond('GET', "{$baseUrl}/criar/equipamento/?",
   Equipamentos::cadastrar());
 
+$klein->respond('POST', "{$baseUrl}/criar/equipamento/?",
+  Equipamentos::salvar());
+
 $klein->respond('GET', "{$baseUrl}/clientes?/?",
   Clientes::listar());
 

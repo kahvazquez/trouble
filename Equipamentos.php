@@ -46,4 +46,33 @@ class Equipamentos
 
   }
 
+  static function salvar()
+  {
+
+    return function ($req, $res, $svc, $app) {
+
+      $newEquipamento = $req ->paramsPost();
+
+      $equipamento = $app->db->equipamento->create();
+
+      $equipamento->cidade = $newEquipamento->cidade;
+      $equipamento->fabricante = $newEquipamento->fabricante;
+      $equipamento->ident = $newEquipamento->ident;
+      $equipamento->equipamento = $newEquipamento->equipamento;
+      $equipamento->localizacao = $newEquipamento->localizacao;
+      $equipamento->tipo_acesso = $newEquipamento->tipo_acesso;
+      $equipamento->ip = $newEquipamento->ip;
+      $equipamento->ip_interno = $newEquipamento->ip_interno;
+      $equipamento->login = $newEquipamento->login;
+      $equipamento->senha = $newEquipamento->senha;
+
+      $equipamento->save();
+
+      $res->redirect("/equipamentos");
+
+    };
+
+  }
+
+
 }
