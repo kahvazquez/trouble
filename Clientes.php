@@ -69,4 +69,44 @@ class Clientes
 
   }
 
+  static function salvar()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      $newCliente = $req->paramsPost();
+      $isNew = empty($req->id);
+
+      if ($isNew) {
+
+        $cliente = $app->db->cadcliente->create();
+        $cliente->set_expr('data', 'now()');
+
+      } else {
+
+        $cliente = $app->db->cadcliente->find_one($req->id);
+
+      }
+
+      $cliente->cidade = $newCliente->cidade;
+      $cliente->status = $newCliente->status;
+      $cliente->contrato = $newCliente->contrato;
+      $cliente->designacao = $newCliente->designacao;
+      $cliente->cliente = $newCliente->cliente;
+      $cliente->velocidade = $newCliente->velocidade;
+      $cliente->operadora = $newCliente->operadora;
+      $cliente->endereco = $newCliente->endereco;
+      $cliente->equipamento = $newCliente->equipamento;
+
+      $cliente->save();
+
+      $id = $isNew
+        ? $cliente->id()
+        : $req->id;
+
+      $res->redirect("/cliente/{$id}");
+
+    };
+
+  }
+
 }

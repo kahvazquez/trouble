@@ -80,6 +80,13 @@ $klein->respond('GET', "{$baseUrl}/criar/cliente/?",
 $klein->respond('GET', "{$baseUrl}/cliente/[:id]/?",
   Clientes::editar());
 
+
+$klein->respond('POST', "{$baseUrl}/criar/cliente/?",
+  Clientes::salvar());
+
+$klein->respond('POST', "{$baseUrl}/cliente/[:id]/?",
+  Clientes::salvar());
+
 $klein->respond('GET', "{$baseUrl}/tickets?/?",
   Tickets::listar());
 
