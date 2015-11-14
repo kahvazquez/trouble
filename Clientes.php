@@ -30,9 +30,9 @@ class Clientes
 
   }
 
- static function criar()
+  static function criar()
 
-   {
+  {
 
     return function ($req, $res, $svc, $app) {
 

@@ -25,7 +25,7 @@ class User
     $this->loadSession();
   }
 
-  private function getCookie()
+  function getCookie()
   {
     return empty($_COOKIE[User::cookieName]) ? NULL : $_COOKIE[User::cookieName];
   }
@@ -77,12 +77,12 @@ class User
     $this->loadUser();
   }
 
-  public function isLoggedIn()
+  function isLoggedIn()
   {
     return isset($this->user);
   }
 
-  public function authorizeGoogleUser($access_code)
+  function authorizeGoogleUser($access_code)
   {
 
     $client = new \Google_Client();
@@ -118,7 +118,7 @@ class User
 
   }
 
-  public function login($user)
+  function login($user)
   {
 
     $this->session = $this->db->session->create();
@@ -132,7 +132,7 @@ class User
     $this->setCookie();
   }
 
-  public function logout()
+  function logout()
   {
 
     if ($this->session) {

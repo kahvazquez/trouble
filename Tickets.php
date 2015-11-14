@@ -5,7 +5,7 @@ namespace ksv\trouble;
 class Tickets
 {
 
-  public static function filter($req, $app)
+  static function filter($req, $app)
   {
 
     $tickets = $app->db->ticket;
@@ -26,7 +26,7 @@ class Tickets
 
   }
 
-  public static function xls()
+  static function xls()
   {
     return function ($req, $res, $svc, $app) {
 
@@ -72,8 +72,7 @@ class Tickets
     };
   }
 
-
-  public static function listar()
+  static function listar()
   {
 
     return function ($req, $res, $svc, $app) {
@@ -90,7 +89,6 @@ class Tickets
     };
 
   }
-
 
   static function editar()
   {

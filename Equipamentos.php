@@ -31,7 +31,6 @@ class Equipamentos
   }
 
   static function cadastrar()
-
   {
 
     return function ($req, $res, $svc, $app) {
