@@ -109,4 +109,56 @@ class Clientes
 
   }
 
+  static function xls()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      $time = time();
+      $date = date('d-m-Y');
+      $exportFile = __DIR__ . "/xls/relatorio-clientes-{$time}.xlsx";
+
+      $headers = [
+        [
+          'Cidade',
+          'Contrato',
+          'Designação',
+          'Cliente',
+          'Velocidade',
+          'Operadora',
+          'Equipamento',
+          'Endereço',
+          'Criado em',
+        ]
+      ];
+      $clientes = $app->db->cadcliente;
+      if ($req->cidade){
+        $clientes->where_equal('cidade', $req->cidade);
+      }
+
+      $rows = array_map(function ($cliente) {
+
+        return [
+          $cliente->cidade,
+          $cliente->contrato,
+          $cliente->designacao,
+          $cliente->cliente,
+          $cliente->velocidade,
+          $cliente->operadora,
+          $cliente->equipamento,
+          $cliente->endereco,
+          date('d/m/Y', strtotime($cliente->data))
+        ];
+
+      }, $clientes->find_many());
+
+      $writer = new \XLSXWriter();
+      $writer->writeSheet(array_merge($headers, $rows), 'Relatório ' . $date);
+      $writer->setAuthor('Sim TV - Trouble Ticket');
+      $writer->writeToFile($exportFile);
+
+      $res->file($exportFile, "Relatório Cliente {$date}.xlsx");
+
+    };
+  }
+
 }

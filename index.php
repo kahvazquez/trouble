@@ -87,6 +87,9 @@ $klein->respond('POST', "{$baseUrl}/criar/cliente/?",
 $klein->respond('POST', "{$baseUrl}/cliente/[:id]/?",
   protege(Clientes::salvar()));
 
+$klein->respond('GET', "{$baseUrl}/clientes?/relatorio/?",
+  protege(Clientes::xls()));
+
 $klein->respond('GET', "{$baseUrl}/tickets?/?",
   protege(Tickets::listar()));
 
