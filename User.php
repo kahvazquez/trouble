@@ -15,6 +15,8 @@ class User
   const cookieName = 'TroubleSessionId';
   private $db;
   private $user;
+  private $groups;
+  private $permissions;
   private $session;
 
   function __construct(&$app)
@@ -43,7 +45,42 @@ class User
 
   private function loadUser()
   {
+
     $this->user = $this->db->user->find_one($this->session->user);
+
+    $groups = $this->db
+      ->user_group
+      ->select_many('group.name', 'group.id')
+      ->join('group', 'group.id = user_group.group')
+      ->where_equal('user_group.user', $this->user->id)
+      ->find_many();
+
+    $groups = $this->groups = array_map(function ($g) {
+      return (object)[
+        'id' => $g->id,
+        'name' => $g->name
+      ];
+    }, $groups);
+
+    $this->permissions = [];
+
+    foreach ($groups as $group) {
+
+      $perms = $this->db
+        ->group
+        ->select_many('permission.id', 'permission.name')
+        ->join('group_permission', 'group_permission.group = group.id')
+        ->join('permission', 'group_permission.permission = permission.id')
+        ->where_equal('group.id', $group->id)
+        ->find_many();
+
+      foreach ($perms as $perm) {
+
+        $this->permissions[$perm->id] = TRUE;
+
+      }
+    }
+
   }
 
   private function loadSession()
@@ -80,6 +117,11 @@ class User
   function isLoggedIn()
   {
     return isset($this->user);
+  }
+
+  function hasPermission($id)
+  {
+    return isset($this->permissions[$id]);
   }
 
   function authorizeGoogleUser($access_code)

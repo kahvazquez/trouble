@@ -2,31 +2,31 @@
 
 {block content}
 
-<section class='clearfix'>
+  <section class='clearfix'>
 
-<header class='page-header'>
-    <h3>
-      Cadastro de Clientes
-    </h3>
-  </header>
+    <header class='page-header'>
+      <h3>
+        Cadastro de Clientes
+      </h3>
+    </header>
 
-        <form class='row' method='POST'>
-
-
-  <div class='col-sm-6'>
-
-      {include 'partials/editar-cliente-esquerda.latte'}
-
-    </div>
-
-    <div class='col-sm-6'>
-
-      {include 'partials/editar-cliente-direita.latte'}
-
-    </div>
+    <form class='row' method='POST'>
 
 
+      <div class='col-sm-6'>
 
-        </form>
+        {include 'partials/editar-cliente-esquerda.latte'}
+
+      </div>
+
+      <div class='col-sm-6'>
+
+        {include 'partials/editar-cliente-direita.latte'}
+
+      </div>
+
+    </form>
+
+  </section>
 
 {/block}

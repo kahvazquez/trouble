@@ -36,8 +36,8 @@ class Equipamentos
     return function ($req, $res, $svc, $app) {
 
       $html = $app->template->render('cadastrar-equipamento', [
-       'cidades' => $app->db->cidade->find_many(),
-       ]);
+        'cidades' => $app->db->cidade->find_many()
+      ]);
 
       $res->body($html)->send();
 
@@ -51,7 +51,7 @@ class Equipamentos
 
     return function ($req, $res, $svc, $app) {
 
-      $newEquipamento = $req ->paramsPost();
+      $newEquipamento = $req->paramsPost();
 
       $equipamento = $app->db->equipamento->create();
 

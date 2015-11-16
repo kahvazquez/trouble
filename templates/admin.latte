@@ -1,0 +1,25 @@
+{layout 'layouts/default.latte'}
+
+{block content}
+
+<section>
+
+  <ul class='nav nav-tabs'>
+    {foreach $groups as $group}
+      <li n:class='$group->isActive ? active'>
+        <a href='/admin/grupo/{$group->id}'>
+          {$group->name}
+        </a>
+      </li>
+    {/foreach}
+  </ul>
+  <br/>
+  <div class='tab-content'>
+    <div class='tab-pane active' id='novo-grupo'>
+      EDITAR {$activeGroup->name}
+    </div>
+  </div>
+
+</section>
+
+{/block}

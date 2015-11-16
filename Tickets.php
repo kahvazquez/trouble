@@ -78,8 +78,8 @@ class Tickets
     return function ($req, $res, $svc, $app) {
 
       $html = $app->template->render('tickets', [
-        'selected' => (object)['cidade' => $req->cidade , 'status' => $req->status],
-         'tickets' => Tickets::filter($req, $app),
+        'selected' => (object)['cidade' => $req->cidade, 'status' => $req->status],
+        'tickets' => Tickets::filter($req, $app),
         'cidades' => $app->db->cidade->find_many(),
         'statuses' => $app->db->status->find_many()
       ]);
@@ -115,7 +115,7 @@ class Tickets
         'operadoras' => $app->db->operadora->find_many(),
         'cidades' => $app->db->cidade->find_many(),
         'statuses' => $app->db->status->find_many(),
-        'ticket' => new \stdClass()
+        'ticket' => $app->db->ticket->create()
       ]);
 
       $res->body($html)->send();

@@ -30,7 +30,18 @@ class TemplateEngine
   private function getPages()
   {
 
-    $pages = $this->db->page->where_equal('menu', 1)->find_many();
+    $pages = $this->db->page
+      ->select_many('id', 'name', 'permission')
+      ->where_equal('menu', 1)
+      ->find_many();
+
+    $user = $this->user;
+
+    $pages = array_filter($pages, function ($p) use ($user) {
+
+      return $user->hasPermission($p->permission);
+
+    });
 
     return array_map(function ($page) {
 

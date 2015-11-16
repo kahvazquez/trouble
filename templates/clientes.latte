@@ -2,61 +2,60 @@
 
 {block content}
 
-      <section class='clearfix'>
+  <section class='clearfix'>
 
-           <a class='btn btn-default' href="criar/cliente/">
-             Novo Cliente
-            </a>
+    <a class='btn btn-default' href="criar/cliente/">
+      Novo Cliente
+    </a>
 
-            <a class='btn btn-default' target='_blank' href="/clientes/relatorio/?{$queryString}">
+    <a class='btn btn-default' target='_blank' href="/clientes/relatorio/?{$queryString}">
       Gerar Relatorio
     </a>
 
-            {include 'partials/filtro-cidade.latte'}
-      </section>
+    {include 'partials/filtro-cidade.latte'}
+  </section>
 
-      <hr/>
+  <hr/>
 
-      <table class='table table-striped'>
-            <thead>
-                  <tr>
-                        <th>Cidade</th>
-                        <th>Contrato</th>
-                        <th>Designação</th>
-                        <th>Cliente</th>
-                        <th>Velocidade</th>
-                        <th>Operadora</th>
-                        <th>Equipamento</th>
-                        <th>Endereço</th>
+  <table class='table table-striped'>
+    <thead>
+      <tr>
+        <th>Cidade</th>
+        <th>Contrato</th>
+        <th>Designação</th>
+        <th>Cliente</th>
+        <th>Velocidade</th>
+        <th>Operadora</th>
+        <th>Equipamento</th>
+        <th>Endereço</th>
+      </tr>
+    </thead>
+    <tbody>
 
-                  </tr>
-            </thead>
-            <tbody>
+    {foreach $clientes as $cliente}
 
-                  {foreach $clientes as $cliente}
+      <tr>
 
-                        <tr>
+        <td>{$cliente->cidade}</td>
 
-                              <td>{$cliente->cidade}</td>
-                              <td>
+        <td>
+          <a href='cliente/{$cliente->id}'>
+            {$cliente->contrato}
+          </a>
+        </td>
 
-                              <a href='cliente/{$cliente->id}'>
-                             {$cliente->contrato}
-                              </a>
+        <td>{$cliente->designacao}</td>
+        <td>{$cliente->cliente}</td>
+        <td>{$cliente->velocidade}</td>
+        <td>{$cliente->operadora}</td>
+        <td>{$cliente->equipamento}</td>
+        <td>{$cliente->endereco}</td>
 
-                              </td>
-                              <td>{$cliente->designacao}</td>
-                              <td>{$cliente->cliente}</td>
-                              <td>{$cliente->velocidade}</td>
-                              <td>{$cliente->operadora}</td>
-                              <td>{$cliente->equipamento}</td>
-                              <td>{$cliente->endereco}</td>
+      </tr>
 
-                        </tr>
+    {/foreach}
 
-                  {/foreach}
-
-            </tbody>
-      </table>
+    </tbody>
+  </table>
 
 {/block}

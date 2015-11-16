@@ -31,17 +31,16 @@ class Clientes
   }
 
   static function criar()
-
   {
 
     return function ($req, $res, $svc, $app) {
 
-
       $html = $app->template->render('criar-cliente', [
-       'operadoras' => $app->db->operadora->find_many(),
-       'cidades' => $app->db->cidade->find_many(),
-       'velocidades' =>$app->db->velocidade->find_many()
-       ]);
+        'operadoras' => $app->db->operadora->find_many(),
+        'cidades' => $app->db->cidade->find_many(),
+        'velocidades' => $app->db->velocidade->find_many(),
+        'cliente' => $app->db->cadcliente->create()
+      ]);
 
       $res->body($html)->send();
 
@@ -56,10 +55,10 @@ class Clientes
     return function ($req, $res, $svc, $app) {
 
       $html = $app->template->render('editar-cliente', [
-      'operadoras' => $app->db->operadora->find_many(),
-       'cidades' => $app->db->cidade->find_many(),
-       'velocidades' =>$app->db->velocidade->find_many(),
-       'cliente' => $app->db->cadcliente->find_one($req->id)
+        'operadoras' => $app->db->operadora->find_many(),
+        'cidades' => $app->db->cidade->find_many(),
+        'velocidades' => $app->db->velocidade->find_many(),
+        'cliente' => $app->db->cadcliente->find_one($req->id)
 
       ]);
 
@@ -131,7 +130,7 @@ class Clientes
         ]
       ];
       $clientes = $app->db->cadcliente;
-      if ($req->cidade){
+      if ($req->cidade) {
         $clientes->where_equal('cidade', $req->cidade);
       }
 
