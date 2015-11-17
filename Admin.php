@@ -44,12 +44,58 @@ class Admin
 
   private static function groupUsers($db, $group)
   {
-    return $db
-      ->user_group
-      ->select_many('user.id', 'user.name')
-      ->join('user', 'user_group.user = user.id')
-      ->where_equal('user_group.group', $group->id)
-      ->find_many();
+    $users = array_map(
+
+      function ($user) use ($db) {
+
+        $user = (object)$user->as_array();
+        $user->isNew = FALSE;
+
+        $myGroups = $db->user_group
+          ->select('group', 'id')
+          ->where_equal('user', $user->id)
+          ->find_many();
+
+        $user->groups = [];
+
+        foreach ($myGroups as $myGroup) {
+          $user->groups[$myGroup->id] = TRUE;
+        }
+
+        $user->emails = array_map(
+
+          function ($e) {
+            return $e->id;
+          },
+
+          $db->user_email
+            ->where_equal('user', $user->id)
+            ->find_many()
+
+        );
+
+        return $user;
+
+      },
+
+      $db->user_group
+        ->select_many('user.id', 'user.name')
+        ->join('user', 'user_group.user = user.id')
+        ->where_equal('user_group.group', $group->id)
+        ->find_many()
+
+    );
+    $placeholder = new \stdClass();
+
+    $placeholder->id = 'novo';
+    $placeholder->name = 'Novo usuário';
+    $placeholder->isNew = TRUE;
+    $placeholder->groups = [];
+    $placeholder->emails = [];
+
+    $users[] = $placeholder;
+
+    return $users;
   }
 
   static function base()

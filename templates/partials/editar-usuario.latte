@@ -1,0 +1,67 @@
+<form method='POST' action='/admin/grupo/{$activeGroup->id}/usuario/{$selectedUser->id}'>
+
+  <div class='row'>
+
+    <div class='col-md-8'>
+      <div class='form-group'>
+        <label>Nome</label>
+        <input
+          name='name'
+          class='form-control'
+          n:attr='value => !$selectedUser->isNew ? $selectedUser->name'/>
+      </div>
+    </div>
+
+    <div class='col-md-4 text-right'>
+      <br/>
+      {if !$selectedUser->isNew}
+        <button class='btn btn-danger'>Remover</button>
+      {/if}
+      <button class='btn btn-primary' type='submit'>Salvar</button>
+    </div>
+
+  </div>
+  <div class='row'>
+
+    <div class='col-md-6'>
+      <label>Emails</label>
+
+      <ul class='list-group'>
+
+        {foreach $selectedUser->emails as $email}
+          <li class='list-group-item'>
+            {$email}
+            <a href='' class='close pull-right' title='Remover email'>
+              &times;
+            </a>
+          </li>
+        {/foreach}
+
+        <li class='list-group-item'>
+          <input type='email' placeholder='novo@email.com' name='email' class='form-control' />
+        </li>
+
+      </ul>
+
+    </div>
+
+    <div class='col-md-6'>
+      <div class='form-group'>
+        <label>Grupos</label>
+        <select class='form-control' multiple name='group'>
+          {foreach $groups as $group}
+            {if !$group->isNew}
+              <option
+                n:attr='selected => isset($selectedUser->groups[$group->id])'
+                value='{$group->id}'>
+                  {$group->name}
+              </option>
+            {/if}
+          {/foreach}
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+</form>

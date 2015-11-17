@@ -22,7 +22,7 @@
       <div class='row'>
         <div class='col-md-3'>
           <ul class='nav nav-pills nav-stacked' id='form-nav'>
-            <li>
+            <li class='active'>
               <a href='#identificacao' data-toggle='pill'>
                 Grupo
               </a>
@@ -45,9 +45,9 @@
         </div>
 
         <div class='col-md-9'>
-          <div class='tab-content jumbotron'>
+          <div class='tab-content'>
 
-            <div class='tab-pane fade' id='identificacao'>
+            <div class='tab-pane active fade in' id='identificacao'>
               {include 'partials/identificacao-grupo.latte'}
             </div>
             {if !$activeGroup->isNew}
