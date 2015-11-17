@@ -17,25 +17,23 @@
   <div class='tab-content'>
     <div class='tab-pane active' id='novo-grupo'>
 
-
-
       <div class='row'>
         <div class='col-md-3'>
           <ul class='nav nav-pills nav-stacked' id='form-nav'>
-            <li class='active'>
-              <a href='#identificacao' data-toggle='pill'>
+            <li n:class='$tab === "info" ? active'>
+              <a href='/admin/grupo/{$activeGroup->id}/info'>
                 Grupo
               </a>
             </li>
 
             {if !$activeGroup->isNew}
-              <li>
-                <a href='#permissoes' data-toggle='pill'>
+              <li n:class='$tab === "permissoes" ? active'>
+                <a href='/admin/grupo/{$activeGroup->id}/permissoes'>
                   Permissões
                 </a>
               </li>
-              <li>
-                <a href='#usuarios' data-toggle='pill'>
+              <li n:class='$tab === "usuarios" ? active'>
+                <a href='/admin/grupo/{$activeGroup->id}/usuarios'>
                   Usuários
                 </a>
               </li>
@@ -47,17 +45,22 @@
         <div class='col-md-9'>
           <div class='tab-content'>
 
-            <div class='tab-pane active fade in' id='identificacao'>
-              {include 'partials/identificacao-grupo.latte'}
-            </div>
-            {if !$activeGroup->isNew}
-              <div class='tab-pane fade' id='permissoes'>
+            <div class='tab-pane active'>
+
+              {if $tab === 'info'}
+                {include 'partials/info-grupo.latte'}
+              {/if}
+
+              {if $tab === 'permissoes'}
                 {include 'partials/permissoes-grupo.latte'}
-              </div>
-              <div class='tab-pane fade' id='usuarios'>
+              {/if}
+
+              {if $tab === 'usuarios'}
                 {include 'partials/usuarios-grupo.latte'}
-              </div>
-            {/if}
+              {/if}
+
+            </div>
+
 
           </div>
         </div>

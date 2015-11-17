@@ -1,11 +1,11 @@
-<form method='POST' action='/admin/grupo/{$activeGroup->id}/usuario/{$selectedUser->id}'>
+<form method='POST' action='/admin/usuario/{$selectedUser->id}'>
 
   <div class='row'>
 
     <div class='col-md-8'>
       <div class='form-group'>
         <label>Nome</label>
-        <input
+        <input required
           name='name'
           class='form-control'
           n:attr='value => !$selectedUser->isNew ? $selectedUser->name'/>
@@ -48,7 +48,7 @@
     <div class='col-md-6'>
       <div class='form-group'>
         <label>Grupos</label>
-        <select class='form-control' multiple name='group'>
+        <select class='form-control' required multiple name='group'>
           {foreach $groups as $group}
             {if !$group->isNew}
               <option

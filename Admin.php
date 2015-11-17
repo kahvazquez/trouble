@@ -98,39 +98,34 @@ class Admin
     return $users;
   }
 
-  static function base()
-  {
-
-    return function ($req, $res, $svc, $app) {
-      return $res->redirect('/admin/grupo/novo');
-    };
-
-  }
-
   static function listar()
   {
     return function ($req, $res, $svc, $app) {
 
       $id = $req->id;
+      $tab = $req->tab;
 
       if ($id === 'novo') {
-
         $activeGroup = self::placeholderGroup();
         $activeGroup->users = [];
-
       } else {
-
         $activeGroup = $app->db->group->find_one($id);
-        $activeGroup->users = self::groupUsers($app->db, $activeGroup);
-
+        $activeGroup->users = $tab === 'usuarios'
+          ? self::groupUsers($app->db, $activeGroup)
+          : [];
       }
 
-      $activeGroup->permissions = self::groupPermissions($app->db, $activeGroup);
+      if ($tab === 'permissoes') {
+        $activeGroup->permissions = self::groupPermissions($app->db, $activeGroup);
+      } else {
+        $activeGroup->permissions = [];
+      }
 
       $groups = $app->db->group->find_many();
       $groups[] = self::placeholderGroup();
 
       $html = $app->template->render('admin', [
+        'tab' => $tab,
         'activeGroup' => $activeGroup,
         'groups' => array_map(function ($group) use ($id) {
           $group->isActive = $id === $group->id;

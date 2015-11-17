@@ -65,9 +65,16 @@ $klein->respond('GET', "{$baseUrl}/sair",
   Base::sair());
 
 $klein->respond('GET', "$baseUrl/admin/?",
-  protege(Admin::base(), 'admin'));
+  function ($req, $res, $svc, $app) {
+    $res->redirect('/admin/grupo/novo');
+  });
 
 $klein->respond('GET', "$baseUrl/admin/grupo/[:id]/?",
+  function ($req, $res, $svc, $app) {
+    $res->redirect("/admin/grupo/{$req->id}/info");
+  });
+
+$klein->respond('GET', "$baseUrl/admin/grupo/[:id]/[:tab]/?",
   protege(Admin::listar(), 'admin'));
 
 $klein->respond(
