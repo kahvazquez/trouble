@@ -16,7 +16,53 @@
   <br/>
   <div class='tab-content'>
     <div class='tab-pane active' id='novo-grupo'>
-      EDITAR {$activeGroup->name}
+
+
+
+      <div class='row'>
+        <div class='col-md-3'>
+          <ul class='nav nav-pills nav-stacked' id='form-nav'>
+            <li>
+              <a href='#identificacao' data-toggle='pill'>
+                Grupo
+              </a>
+            </li>
+
+            {if !$activeGroup->isNew}
+              <li>
+                <a href='#permissoes' data-toggle='pill'>
+                  Permissões
+                </a>
+              </li>
+              <li>
+                <a href='#usuarios' data-toggle='pill'>
+                  Usuários
+                </a>
+              </li>
+            {/if}
+
+          </ul>
+        </div>
+
+        <div class='col-md-9'>
+          <div class='tab-content jumbotron'>
+
+            <div class='tab-pane fade' id='identificacao'>
+              {include 'partials/identificacao-grupo.latte'}
+            </div>
+            {if !$activeGroup->isNew}
+              <div class='tab-pane fade' id='permissoes'>
+                {include 'partials/permissoes-grupo.latte'}
+              </div>
+              <div class='tab-pane fade' id='usuarios'>
+                {include 'partials/usuarios-grupo.latte'}
+              </div>
+            {/if}
+
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 

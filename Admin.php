@@ -10,19 +10,35 @@ class Admin
     $newGroup = new \stdClass();
     $newGroup->id = 'novo';
     $newGroup->name = 'Novo Grupo';
+    $newGroup->isNew = TRUE;
     return $newGroup;
   }
 
   private static function groupPermissions($db, $group)
   {
 
-    return $db
-      ->permission
-      ->select_many('permission.id', 'permission.name')
-      ->select('group_permission.id', 'hasPermission')
-      ->left_outer_join('group_permission', 'permission.id = group_permission.permission')
-      ->where_equal('group_permission.group', $group->id)
-      ->find_many();
+    return array_map(
+
+      function ($perm) {
+        $perm->hasPermission = $perm->groupPermission
+          ? TRUE : FALSE;
+        return $perm;
+      },
+
+      $db->permission
+        ->raw_query("
+          SELECT
+            permission.id,
+            permission.name,
+            group_permission.id groupPermission
+          FROM permission
+          LEFT JOIN group_permission ON (
+            permission.id = group_permission.permission
+            AND group_permission.group = :group
+          )", ['group' => $group->id]
+        )->find_many()
+
+    );
 
   }
 
@@ -54,16 +70,16 @@ class Admin
       if ($id === 'novo') {
 
         $activeGroup = self::placeholderGroup();
-        $activeGroup->permissions = $app->db->permission->find_many();
         $activeGroup->users = [];
 
       } else {
 
         $activeGroup = $app->db->group->find_one($id);
-        $activeGroup->permissions = self::groupPermissions($app->db, $activeGroup);
         $activeGroup->users = self::groupUsers($app->db, $activeGroup);
 
       }
+
+      $activeGroup->permissions = self::groupPermissions($app->db, $activeGroup);
 
       $groups = $app->db->group->find_many();
       $groups[] = self::placeholderGroup();

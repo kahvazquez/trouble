@@ -63,8 +63,8 @@ class TemplateEngine
 
     $layoutAssets = empty($assets[$screen]) ? pageAssets() : $assets[$screen];
 
-    $layoutAssets['css'] += $assets['css'];
-    $layoutAssets['js'] += $assets['js'];
+    $layoutAssets['css'] = array_merge($assets['css'], isset($layoutAssets['css']) ? $layoutAssets['css'] : []);
+    $layoutAssets['js'] = array_merge($assets['js'], isset($layoutAssets['js']) ? $layoutAssets['js'] : []);
 
     $data = array_merge($layoutAssets, $data);
 

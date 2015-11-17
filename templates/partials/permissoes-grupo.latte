@@ -1,0 +1,21 @@
+<form method='POST' action='/admin/grupo/{$activeGroup->id}/permissoes'>
+  <div class='text-capitalize'>
+    {foreach $activeGroup->permissions as $permission}
+      <div class='form-group'>
+        <label>
+          <input
+            n:attr="checked => $permission->hasPermission"
+            name='permission[{$permission->id}]'
+            type='checkbox'> {$permission->name}
+        </label>
+      </div>
+    {/foreach}
+  </div>
+
+  <div class='text-right'>
+    <button class='btn btn-primary' type='submit'>
+      Salvar
+    </button>
+  </div>
+
+</form>

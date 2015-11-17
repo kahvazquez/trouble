@@ -1,0 +1,23 @@
+<form method='POST'>
+
+  <div class='form-group'>
+    <label for='input-grupo-name'>Nome</label>
+    <input
+      id='input-grupo-name'
+      name='name'
+      class='form-control'
+      n:attr='value => $activeGroup->isNew ? "" : $activeGroup->name'
+      required/>
+  </div>
+  <div class='text-right'>
+    {if !$activeGroup->isNew}
+      <button class='btn btn-danger'>
+        Remover
+      </button>
+    {/if}
+
+    <button class='btn btn-primary' type='submit'>
+      Salvar
+    </button>
+  </div>
+</form>

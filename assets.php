@@ -30,6 +30,12 @@ $assets = [
       '/js/login.js',
       'https://plus.google.com/js/client:plusone.js'
     ]
+  ],
+  'admin' => [
+    'css' => [],
+    'js' => [
+      '/js/admin.js'
+    ]
   ]
 
 ];

@@ -1,42 +1,58 @@
 <div class='form-group'>
 
-     <label>Velocidade</label>
+  <label>Velocidade</label>
 
-            <select name='velocidade' class='form-control' value='{$cliente->velocidade}'>
-                        <option value=''>- Selecionar -</option>
-                        <option n:attr='selected => $cliente->velocidade === $velocidade->velocidade'
-                                      n:foreach='$velocidades as $velocidade'>{$velocidade->velocidade}</option>
+  <select name='velocidade' class='form-control' value='{$cliente->velocidade}'>
+    <option value=''>- Selecionar -</option>
+    <option
+      n:attr='selected => $cliente->velocidade === $velocidade->velocidade'
+      n:foreach='$velocidades as $velocidade'>
+        {$velocidade->velocidade}
+    </option>
 
-            </select>
-
- </div>
-
-<div class='form-group'>
-
-     <label>Operadora</label>
-
-            <select class='form-control' name='operadora' required>
-                        <option value=''>- Selecionar -</option>
-                        <option n:attr='selected => $cliente->operadora === $operadora->name'
-                                      n:foreach='$operadoras as $operadora'>{$operadora->name}</option>
-                        </option>
-            </select>
-</div>
-
-<div class='form-group'>
-
-     <label>Endereço</label>
-     <input class='form-control' type='text' name='endereco' value='{$cliente->endereco}' required>
+  </select>
 
 </div>
 
 <div class='form-group'>
 
-     <label>Equipamento</label>
-     <input class='form-control' type='text' name='equipamento' value='{$cliente->equipamento}' required>
+  <label>Operadora</label>
+
+  <select class='form-control' name='operadora' required>
+    <option value=''>- Selecionar -</option>
+    <option
+      n:attr='selected => $cliente->operadora === $operadora->name'
+      n:foreach='$operadoras as $operadora'>
+        {$operadora->name}
+    </option>
+  </select>
 
 </div>
 
- <button type='submit' class='btn btn-success btn-md pull-right'>
+<div class='form-group'>
+
+  <label>Endereço</label>
+  <input
+    class='form-control'
+    type='text'
+    name='endereco'
+    value='{$cliente->endereco}'
+    required>
+
+</div>
+
+<div class='form-group'>
+
+  <label>Equipamento</label>
+  <input
+    class='form-control'
+    type='text'
+    name='equipamento'
+    value='{$cliente->equipamento}'
+    required>
+
+</div>
+
+<button type='submit' class='btn btn-success pull-right'>
   Salvar
 </button>
