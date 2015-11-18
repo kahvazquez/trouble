@@ -18,7 +18,7 @@ function makeRoute($path, $method, $callback)
 }
 
 $redirectToAdminInfo = function ($req, $res, $svc, $app) {
-  $res->redirect("/admin/grupo/{$req->id}/info");
+  $res->redirect("/admin/grupo/{$req->id}");
 };
 
 $redirectToAdminNovo = function ($req, $res, $svc, $app) {
@@ -37,7 +37,7 @@ return [
 
   makeRoute('GET', '/admin/?', $redirectToAdminNovo),
 
-  makeRoute('GET', '/admin/grupo/[:id]/?', $redirectToAdminInfo),
+  makeRoute('GET', '/admin/grupo/[:id]/?', protege(Admin::listar(), 'admin')),
 
   makeRoute('GET', '/admin/grupo/[:id]/[:tab]/?', protege(Admin::listar(), 'admin')),
 
@@ -45,7 +45,11 @@ return [
 
   makeRoute('POST', '/admin/grupo/[:group]/usuarios/[:id]/?', protege(Admin::salvarUsuario(), 'admin')),
 
-  makeRoute('POST', '/admin/grupo/[:id]/info/?', protege(Admin::salvarGrupo(), 'admin')),
+  makeRoute('DELETE', '/admin/grupo/[:group]/usuarios/[:id]/?', protege(Admin::removeUsuario(), 'admin')),
+
+  makeRoute('POST', '/admin/grupo/[:id]/?', protege(Admin::salvarGrupo(), 'admin')),
+
+  makeRoute('DELETE', '/admin/grupo/[:id]', protege(Admin::removeGrupo(), 'admin')),
 
   makeRoute('POST', '/admin/grupo/[:id]/permissoes/?', protege(Admin::salvarPermissoesGrupo(), 'admin')),
 

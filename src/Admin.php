@@ -137,7 +137,7 @@ class Admin
     return function ($req, $res, $svc, $app) {
 
       $id = $req->id;
-      $tab = $req->tab;
+      $tab = isset($req->tab) ? $req->tab : 'info';
 
       if ($id === 'novo') {
         $activeGroup = self::placeholderGroup();
@@ -269,7 +269,7 @@ class Admin
 
       $id = $req->id !== 'novo' ? $req->id : $group->id();
 
-      $res->redirect("/admin/grupo/{$id}/info");
+      $res->redirect("/admin/grupo/{$id}");
 
     };
   }
@@ -286,7 +286,7 @@ class Admin
       $newPermissions = $req->paramsPost()->permissions;
       if (!$newPermissions) $newPermissions = [];
 
-      foreach($groupPermissions as $groupPermission) {
+      foreach ($groupPermissions as $groupPermission) {
         if (!isset($newPermissions[$groupPermission->id])) {
           $groupPermission->delete();
         } else {
@@ -294,7 +294,7 @@ class Admin
         }
       }
 
-      foreach($newPermissions as $id => $val) {
+      foreach ($newPermissions as $id => $val) {
 
         $permission = $app->db->group_permission->create();
         $permission->permission = $id;
@@ -306,6 +306,42 @@ class Admin
       Flash::success('Permissões atualizadas');
 
       $svc->back();
+
+    };
+  }
+
+  static function removeUsuario()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      $app->db->user
+        ->find_one($req->id)
+        ->delete();
+
+      Flash::success('Usuário removido com sucesso');
+
+      $res
+        ->code(204)
+        ->header('X-Location', "/admin/grupo/{$req->group}/usuarios")
+        ->send();
+
+    };
+  }
+
+  static function removeGrupo()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      $app->db->group
+        ->find_one($req->id)
+        ->delete();
+
+      Flash::success('Grupo removido com sucesso');
+
+      $res
+        ->code(204)
+        ->header('X-Location', '/admin/grupo/novo')
+        ->send();
 
     };
   }
