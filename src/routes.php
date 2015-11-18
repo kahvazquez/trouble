@@ -47,6 +47,8 @@ return [
 
   makeRoute('DELETE', '/admin/grupo/[:group]/usuarios/[:id]/?', protege(Admin::removeUsuario(), 'admin')),
 
+  makeRoute('DELETE', '/email', protege(Admin::removeEmail(), 'admin')),
+
   makeRoute('POST', '/admin/grupo/[:id]/?', protege(Admin::salvarGrupo(), 'admin')),
 
   makeRoute('DELETE', '/admin/grupo/[:id]', protege(Admin::removeGrupo(), 'admin')),

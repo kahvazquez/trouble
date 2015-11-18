@@ -10,7 +10,7 @@ $(function () {
 
     e.preventDefault();
 
-    var pathname = $(this).attr('href') || location.pathname;
+    var pathname = $(this).data('unlink') || location.pathname;
 
     fetch(pathname, {method: 'DELETE', credentials: 'same-origin'})
       .then(function (response) {

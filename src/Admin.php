@@ -322,7 +322,7 @@ class Admin
 
       $res
         ->code(204)
-        ->header('X-Location', "/admin/grupo/{$req->group}/usuarios")
+        ->header('X-Location', $req->headers()->referer)
         ->send();
 
     };
@@ -341,6 +341,25 @@ class Admin
       $res
         ->code(204)
         ->header('X-Location', '/admin/grupo/novo')
+        ->send();
+
+    };
+  }
+
+  static function removeEmail()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      $app->db
+        ->user_email
+        ->find_one($req->id)
+        ->delete();
+
+      Flash::success('Email removido com sucesso');
+
+      $res
+        ->code(204)
+        ->header('X-Location', $req->headers()->referer)
         ->send();
 
     };

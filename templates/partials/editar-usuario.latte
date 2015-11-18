@@ -15,9 +15,9 @@
     <div class='col-md-4 text-right'>
       <br/>
       {if !$selectedUser->isNew}
-        <button class='btn btn-danger' data-unlink>
+        <a class='btn btn-danger' data-unlink href=''>
           Remover
-        </button>
+        </a>
       {/if}
       <button class='btn btn-primary' type='submit'>Salvar</button>
     </div>
@@ -36,7 +36,7 @@
 
             {if count($selectedUser->emails) > 1}
               <a href=''
-                data-unlink='/email/{$selectedUser->id}/{$email}'
+                data-unlink='/email?id={urlencode($email)}'
                 class='close pull-right'
                 title='Remover email'>
                 &times;
