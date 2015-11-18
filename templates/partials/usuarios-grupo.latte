@@ -1,21 +1,26 @@
-<div id='users-accordion' class='panel-group'>
+<div class='panel-group'>
   {foreach $activeGroup->users as $selectedUser}
     <div class='panel panel-default'>
       <div class='panel-heading'>
         <h4 class='panel-title'>
-          <a
-            href='#user-{$selectedUser->id}'
-            data-toggle='collapse'
-            data-parent='#users-accordion'>
+          <a href='/admin/grupo/{$activeGroup->id}/usuarios/{$selectedUser->id}'>
             {$selectedUser->name}
           </a>
         </h4>
       </div>
-      <div id='user-{$selectedUser->id}' class='panel-collapse collapse'>
+
+      <div n:class='panel-collapse, collapse, $selectedUser->isActive ? in'>
+
         <div class='panel-body'>
-          {include 'editar-usuario.latte', selectedUser => $selectedUser}
+
+          {if $selectedUser->isActive}
+            {include 'editar-usuario.latte', selectedUser => $selectedUser}
+          {/if}
+
         </div>
+
       </div>
+
     </div>
 
   {/foreach}

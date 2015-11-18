@@ -1,4 +1,4 @@
-<form method='POST' action='/admin/usuario/{$selectedUser->id}'>
+<form method='POST'>
 
   <div class='row'>
 
@@ -31,14 +31,26 @@
         {foreach $selectedUser->emails as $email}
           <li class='list-group-item'>
             {$email}
-            <a href='' class='close pull-right' title='Remover email'>
-              &times;
-            </a>
+
+            {if count($selectedUser->emails) > 1}
+              <a href=''
+                data-unlink='/email/{$selectedUser->id}/{$email}'
+                class='close pull-right'
+                title='Remover email'>
+                &times;
+              </a>
+            {/if}
+
           </li>
         {/foreach}
 
         <li class='list-group-item'>
-          <input type='email' placeholder='novo@email.com' name='email' class='form-control' />
+          <input
+            type='email'
+            placeholder='novo@email.com'
+            name='email'
+            n:attr='required => count($selectedUser->emails) === 0 ? required'
+            class='form-control' />
         </li>
 
       </ul>
@@ -48,7 +60,7 @@
     <div class='col-md-6'>
       <div class='form-group'>
         <label>Grupos</label>
-        <select class='form-control' required multiple name='group'>
+        <select class='form-control' multiple name='groups[]'>
           {foreach $groups as $group}
             {if !$group->isNew}
               <option

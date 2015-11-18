@@ -41,6 +41,10 @@ return [
 
   makeRoute('GET', '/admin/grupo/[:id]/[:tab]/?', protege(Admin::listar(), 'admin')),
 
+  makeRoute('GET', '/admin/grupo/[:id]/[:tab]/[:uid]/?', protege(Admin::listar(), 'admin')),
+
+  makeRoute('POST', '/admin/grupo/[:group]/usuarios/[:id]/?', protege(Admin::salvarUsuario(), 'admin')),
+
   makeRoute('GET', '/equipamentos?/?', protege(Equipamentos::listar(), 'equipamentos')),
 
   makeRoute('GET', '/criar/equipamento/?', protege(Equipamentos::cadastrar(), 'criar_equipamento')),

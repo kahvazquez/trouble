@@ -15,11 +15,11 @@
   </ul>
   <br/>
   <div class='tab-content'>
-    <div class='tab-pane active' id='novo-grupo'>
+    <div class='tab-pane active'>
 
       <div class='row'>
         <div class='col-md-3'>
-          <ul class='nav nav-pills nav-stacked' id='form-nav'>
+          <ul class='nav nav-pills nav-stacked'>
             <li n:class='$tab === "info" ? active'>
               <a href='/admin/grupo/{$activeGroup->id}/info'>
                 Grupo
@@ -32,12 +32,13 @@
                   Permissões
                 </a>
               </li>
-              <li n:class='$tab === "usuarios" ? active'>
-                <a href='/admin/grupo/{$activeGroup->id}/usuarios'>
-                  Usuários
-                </a>
-              </li>
             {/if}
+
+            <li n:class='$tab === "usuarios" ? active'>
+              <a href='/admin/grupo/{$activeGroup->id}/usuarios'>
+                Usuários
+              </a>
+            </li>
 
           </ul>
         </div>

@@ -2,6 +2,8 @@
 
 namespace ksv\trouble;
 
+use McKay\Flash;
+
 class Admin
 {
 
@@ -42,52 +44,84 @@ class Admin
 
   }
 
-  private static function groupUsers($db, $group)
+  private static function groupUsers($db, $group, $uid)
   {
+
+    if ($group->isNew) {
+
+      $groupUsers = $db
+        ->user
+        ->raw_query("
+          SELECT
+            user.id, user.name
+          FROM user
+          WHERE
+            (
+              SELECT count(*)
+              FROM user_group
+              WHERE
+                user_group.user = user.id
+            ) = 0
+        ")->find_many();
+
+    } else {
+
+      $groupUsers = $db
+        ->user_group
+        ->select_many('user.id', 'user.name')
+        ->join('user', 'user_group.user = user.id')
+        ->where_equal('user_group.group', $group->id)
+        ->find_many();
+
+    }
+
     $users = array_map(
 
-      function ($user) use ($db) {
+      function ($user) use ($db, $uid) {
 
         $user = (object)$user->as_array();
         $user->isNew = FALSE;
+        $user->isActive = $user->id === $uid;
 
-        $myGroups = $db->user_group
-          ->select('group', 'id')
-          ->where_equal('user', $user->id)
-          ->find_many();
+        if ($user->isActive) {
 
-        $user->groups = [];
-
-        foreach ($myGroups as $myGroup) {
-          $user->groups[$myGroup->id] = TRUE;
-        }
-
-        $user->emails = array_map(
-
-          function ($e) {
-            return $e->id;
-          },
-
-          $db->user_email
+          $myGroups = $db->user_group
+            ->select('group', 'id')
             ->where_equal('user', $user->id)
-            ->find_many()
+            ->find_many();
 
-        );
+          $user->groups = [];
+
+          foreach ($myGroups as $myGroup) {
+            $user->groups[$myGroup->id] = TRUE;
+          }
+
+          $user->emails = array_map(
+
+            function ($e) {
+              return $e->id;
+            },
+
+            $db->user_email
+              ->where_equal('user', $user->id)
+              ->find_many()
+
+          );
+
+        }
 
         return $user;
 
       },
 
-      $db->user_group
-        ->select_many('user.id', 'user.name')
-        ->join('user', 'user_group.user = user.id')
-        ->where_equal('user_group.group', $group->id)
-        ->find_many()
+      $groupUsers
 
     );
+
     $placeholder = new \stdClass();
 
     $placeholder->id = 'novo';
+    $placeholder->isActive = 'novo' === $uid;
     $placeholder->name = 'Novo usuário';
     $placeholder->isNew = TRUE;
     $placeholder->groups = [];
@@ -107,13 +141,13 @@ class Admin
 
       if ($id === 'novo') {
         $activeGroup = self::placeholderGroup();
-        $activeGroup->users = [];
       } else {
         $activeGroup = $app->db->group->find_one($id);
-        $activeGroup->users = $tab === 'usuarios'
-          ? self::groupUsers($app->db, $activeGroup)
-          : [];
       }
+
+      $activeGroup->users = $tab === 'usuarios'
+        ? self::groupUsers($app->db, $activeGroup, $req->uid)
+        : [];
 
       if ($tab === 'permissoes') {
         $activeGroup->permissions = self::groupPermissions($app->db, $activeGroup);
@@ -127,6 +161,7 @@ class Admin
       $html = $app->template->render('admin', [
         'tab' => $tab,
         'activeGroup' => $activeGroup,
+        'uid' => $req->uid,
         'groups' => array_map(function ($group) use ($id) {
           $group->isActive = $id === $group->id;
           return $group;
@@ -134,6 +169,87 @@ class Admin
       ]);
 
       $res->body($html)->send();
+
+    };
+  }
+
+  static function salvarUsuario()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      $input = $req->paramsPost();
+
+      if ($req->id !== 'novo') {
+
+        $user = $app->db->user->find_one($req->id);
+
+      } else {
+
+        $user = $app->db->user->create();
+
+      }
+
+      $user->name = $input->name;
+      $user->save();
+
+      $id = $req->id !== 'novo'
+        ? $user->id
+        : $user->id();
+
+      if ($input->email) {
+
+        $email = $app->db->user_email->create();
+        $email->user = $id;
+        $email->id = $input->email;
+
+        try {
+
+          $email->save();
+
+        } catch (\Exception $e) {
+
+          Flash::error('Esse email já está em uso.');
+
+        }
+
+      }
+
+      $currentGroup = $req->group;
+
+      $selectedGroups = $input->groups ? array_flip($input->groups) : [];
+      $newGroups = $selectedGroups;
+
+      $userGroups = $app->db
+        ->user_group
+        ->where_equal('user', $id)
+        ->find_many();
+
+      foreach($userGroups as $userGroup) {
+
+        if (isset($selectedGroups[$userGroup->id])) {
+          unset($newGroups[$userGroup->id]);
+        } else {
+          $userGroup->delete();
+        }
+
+      }
+
+      foreach($newGroups as $selectedGroup => $val) {
+        $sG = $app->db->user_group->create();
+        $sG->user = $id;
+        $sG->group = $selectedGroup;
+        $sG->save();
+      }
+
+      if (empty($selectedGroups[$currentGroup])) {
+        $currentGroup = count($selectedGroups)
+          ? array_keys($selectedGroups)[0]
+          : 'novo';
+      }
+
+      Flash::success('Usuário salvo com sucesso');
+
+      $res->redirect("/admin/grupo/{$currentGroup}/usuarios/{$id}");
 
     };
   }

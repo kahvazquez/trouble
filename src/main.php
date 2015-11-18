@@ -14,7 +14,11 @@ require 'TemplateEngine.php';
 
 use Klein\Klein;
 
-error_reporting(E_ALL);
+error_reporting(
+  getenv('ENV') === 'production'
+    ? 0
+    : E_ALL
+);
 
 $router = new Klein();
 
