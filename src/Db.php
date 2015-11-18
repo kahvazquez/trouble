@@ -5,12 +5,10 @@ namespace ksv\trouble;
 use \ORM;
 use \PDO;
 
-require_once 'vendor/autoload.php';
-
 class Db
 {
 
-  function __construct(&$app)
+  function __construct($app)
   {
 
     $db = $app->config->db;

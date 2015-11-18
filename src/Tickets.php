@@ -32,7 +32,7 @@ class Tickets
 
       $time = time();
       $date = date('d-m-Y');
-      $exportFile = __DIR__ . "/xls/relatorio-tickets-{$time}.xlsx";
+      $exportFile = __DIR__ . "/../xls/relatorio-tickets-{$time}.xlsx";
 
       $headers = [
         [

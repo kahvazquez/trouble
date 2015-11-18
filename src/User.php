@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: christian
- * Date: 9/30/15
- * Time: 1:28 PM
- */
 
 namespace ksv\trouble;
 
@@ -19,7 +13,7 @@ class User
   private $permissions;
   private $session;
 
-  function __construct(&$app)
+  function __construct($app)
   {
     session_start();
     $this->db = $app->db;

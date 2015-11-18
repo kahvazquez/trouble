@@ -2,8 +2,6 @@
 
 namespace ksv\trouble;
 
-require_once 'vendor/autoload.php';
-
 use \McKay\Flash;
 
 class Base

@@ -2,8 +2,6 @@
 
 namespace ksv\trouble;
 
-require_once 'vendor/autoload.php';
-
 use \McKay\Flash;
 use \Latte\Engine;
 
@@ -12,7 +10,7 @@ class TemplateEngine
 
   private $engine, $db, $user, $config;
 
-  function __construct(&$app)
+  function __construct($app)
   {
 
     $this->db = $app->db;
@@ -45,9 +43,7 @@ class TemplateEngine
 
     return array_map(function ($page) {
 
-      global $baseUrl;
-
-      $page->url = "{$baseUrl}/{$page->id}";
+      $page->url = "/{$page->id}";
       return $page;
 
     }, $pages);
@@ -58,8 +54,6 @@ class TemplateEngine
   {
 
     require_once 'assets.php';
-
-    global $baseUrl;
 
     $layoutAssets = empty($assets[$screen]) ? pageAssets() : $assets[$screen];
 
@@ -72,7 +66,6 @@ class TemplateEngine
     Flash::clear();
 
     $data['user'] = $this->user;
-    $data['baseUrl'] = $baseUrl;
 
     $data['pathInfo'] = rtrim($_SERVER['PATH_INFO'], '/');
 

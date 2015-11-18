@@ -114,7 +114,7 @@ class Clientes
 
       $time = time();
       $date = date('d-m-Y');
-      $exportFile = __DIR__ . "/xls/relatorio-clientes-{$time}.xlsx";
+      $exportFile = __DIR__ . "/../xls/relatorio-clientes-{$time}.xlsx";
 
       $headers = [
         [
