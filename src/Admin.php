@@ -224,7 +224,7 @@ class Admin
         ->where_equal('user', $id)
         ->find_many();
 
-      foreach($userGroups as $userGroup) {
+      foreach ($userGroups as $userGroup) {
 
         if (isset($selectedGroups[$userGroup->id])) {
           unset($newGroups[$userGroup->id]);
@@ -234,7 +234,7 @@ class Admin
 
       }
 
-      foreach($newGroups as $selectedGroup => $val) {
+      foreach ($newGroups as $selectedGroup => $val) {
         $sG = $app->db->user_group->create();
         $sG->user = $id;
         $sG->group = $selectedGroup;
@@ -250,6 +250,26 @@ class Admin
       Flash::success('Usuário salvo com sucesso');
 
       $res->redirect("/admin/grupo/{$currentGroup}/usuarios/{$id}");
+
+    };
+  }
+
+  static function salvarGrupo()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      if ($req->id !== 'novo') {
+        $group = $app->db->group->find_one($req->id);
+      } else {
+        $group = $app->db->group->create();
+      }
+
+      $group->name = $req->paramsPost()->name;
+      $group->save();
+
+      $id = $req->id !== 'novo' ? $req->id : $group->id();
+
+      $res->redirect("/admin/grupo/{$id}/info");
 
     };
   }
