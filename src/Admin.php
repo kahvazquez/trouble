@@ -274,4 +274,40 @@ class Admin
     };
   }
 
+  static function salvarPermissoesGrupo()
+  {
+    return function ($req, $res, $svc, $app) {
+
+      $groupPermissions = $app->db
+        ->group_permission
+        ->where_equal('group', $req->id)
+        ->find_many();
+
+      $newPermissions = $req->paramsPost()->permissions;
+      if (!$newPermissions) $newPermissions = [];
+
+      foreach($groupPermissions as $groupPermission) {
+        if (!isset($newPermissions[$groupPermission->id])) {
+          $groupPermission->delete();
+        } else {
+          unset($newPermissions[$groupPermission->id]);
+        }
+      }
+
+      foreach($newPermissions as $id => $val) {
+
+        $permission = $app->db->group_permission->create();
+        $permission->permission = $id;
+        $permission->group = $req->id;
+        $permission->save();
+
+      }
+
+      Flash::success('Permissões atualizadas');
+
+      $svc->back();
+
+    };
+  }
+
 }
