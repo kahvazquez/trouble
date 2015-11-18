@@ -17,10 +17,6 @@ function makeRoute($path, $method, $callback)
   return $route;
 }
 
-$redirectToAdminInfo = function ($req, $res, $svc, $app) {
-  $res->redirect("/admin/grupo/{$req->id}");
-};
-
 $redirectToAdminNovo = function ($req, $res, $svc, $app) {
   $res->redirect('/admin/grupo/novo');
 };

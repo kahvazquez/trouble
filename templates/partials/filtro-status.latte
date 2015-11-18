@@ -5,9 +5,7 @@
               <select name='status' class='form-control' >
                       <option value=''>- Selecionar -</option>
 
-                      <option
-                                  n:attr='selected => $ticket->status === $status->name'
-                                  n:foreach='$statuses as $status'>
+                      <option n:foreach='$statuses as $status'>
                           {$status->name}
                       </option>
 
