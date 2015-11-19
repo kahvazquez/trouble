@@ -2,6 +2,8 @@
 
 namespace ksv\trouble;
 
+use McKay\Flash;
+
 class Tickets
 {
 
@@ -158,6 +160,8 @@ class Tickets
       $id = $isNew
         ? $ticket->id()
         : $req->id;
+
+      Flash::success('Salvo com sucesso');
 
       $res->redirect("/ticket/{$id}");
 

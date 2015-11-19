@@ -2,6 +2,8 @@
 
 namespace ksv\trouble;
 
+use McKay\Flash;
+
 class Equipamentos
 {
 
@@ -67,6 +69,8 @@ class Equipamentos
       $equipamento->senha = $newEquipamento->senha;
 
       $equipamento->save();
+
+      Flash::success('Equipamento cadastrado com sucesso');
 
       $res->redirect("/equipamentos");
 

@@ -2,6 +2,8 @@
 
 namespace ksv\trouble;
 
+use McKay\Flash;
+
 class Clientes
 {
 
@@ -101,6 +103,8 @@ class Clientes
       $id = $isNew
         ? $cliente->id()
         : $req->id;
+
+      Flash::success('Salvo com sucesso');
 
       $res->redirect("/cliente/{$id}");
 
