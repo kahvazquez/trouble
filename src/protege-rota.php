@@ -10,6 +10,7 @@ function protege($fn, $pageId = NULL)
     if (!$app->user->isLoggedIn()) {
 
       return $res->code(401)
+        ->header('Content-Type','text/plain;charset=UTF-8')
         ->body('Não autorizado')->send();
 
     }
@@ -21,6 +22,7 @@ function protege($fn, $pageId = NULL)
       if (!$app->user->hasPermission($page->permission)) {
 
         return $res->code(401)
+          ->header('Content-Type','text/plain;charset=UTF-8')
           ->body('Não autorizado')->send();
 
       }
