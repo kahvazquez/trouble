@@ -116,7 +116,7 @@ class Clientes
   {
     return function ($req, $res, $svc, $app) {
 
-      $time = time();
+      $time = date('H:i:s', time());
       $date = date('d-m-Y');
       $exportFile = __DIR__ . "/../xls/relatorio-clientes-{$time}.xlsx";
 
@@ -159,7 +159,7 @@ class Clientes
       $writer->setAuthor('Sim TV - Trouble Ticket');
       $writer->writeToFile($exportFile);
 
-      $res->file($exportFile, "Relatório Cliente {$date}.xlsx");
+      $res->file($exportFile, "Relatório Cliente {$time}.xlsx");
 
     };
   }
