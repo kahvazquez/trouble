@@ -34,7 +34,13 @@
 <div class='form-group'>
 
   <label>Cliente Final</label>
-  <input class='form-control' type='text' name='cliente_final' required>
+
+  <select class='form-control' name='cliente_final' required>
+    <option value=''>- Selecionar -</option>
+    <option n:foreach='$clientes as $cliente' value='{$cliente->cliente}'>
+      {$cliente->cliente}
+    </option>
+  </select>
 
 </div>
 

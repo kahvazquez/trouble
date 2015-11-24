@@ -113,10 +113,20 @@ class Tickets
 
     return function ($req, $res, $svc, $app) {
 
+      $clientes = $app->db->cadcliente;
+      $cidade = $req->cidade;
+
+      if ($cidade) {
+
+      $clientes->where_equal('cliente' , strtoupper($cliente));
+
+      }
+
       $html = $app->template->render('criar-ticket', [
         'operadoras' => $app->db->operadora->find_many(),
         'cidades' => $app->db->cidade->find_many(),
         'statuses' => $app->db->status->find_many(),
+        'clientes' => $clientes->find_many(),
         'ticket' => $app->db->ticket->create()
       ]);
 
