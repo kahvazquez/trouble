@@ -37,10 +37,18 @@ class Clientes
 
     return function ($req, $res, $svc, $app) {
 
+      $equipamentos = $app->db->equipamento;
+      $cidade = $req->cidade;
+
+      if ($cidade) {
+        $equipamentos->where_equal('ident', strtoupper($equipamento));
+      }
+
       $html = $app->template->render('criar-cliente', [
         'operadoras' => $app->db->operadora->find_many(),
         'cidades' => $app->db->cidade->find_many(),
         'velocidades' => $app->db->velocidade->find_many(),
+        'equipamentos' => $equipamentos->find_many(),
         'cliente' => $app->db->cadcliente->create()
       ]);
 

@@ -42,15 +42,13 @@
 </div>
 
 <div class='form-group'>
-
-  <label>Equipamento</label>
-  <input
-    class='form-control'
-    type='text'
-    name='equipamento'
-    value='{$cliente->equipamento}'
-    required>
-
+     <label>Equipamento</label>
+     <select name='equipamento' class='form-control' required>
+            <option value=''>- Selecionar -</option>
+            <option n:foreach='$equipamentos as $equipamento' value='{$equipamento->ident}'>
+                          {$equipamento->ident}
+            </option>
+      </select>
 </div>
 
 <button type='submit' class='btn btn-success pull-right'>

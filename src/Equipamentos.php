@@ -43,10 +43,10 @@ class Equipamentos
 
       $res->body($html)->send();
 
-
     };
 
   }
+
 
   static function salvar()
   {
