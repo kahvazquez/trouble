@@ -369,16 +369,6 @@ INSERT INTO `group_permission` (`id`, `group`, `permission`) VALUES
 (45,  3,  3),
 (46,  3,  6),
 (47,  3,  9),
-(58,  1,  1),
-(59,  1,  2),
-(60,  1,  3),
-(61,  1,  4),
-(62,  1,  5),
-(63,  1,  6),
-(64,  1,  7),
-(65,  1,  8),
-(66,  1,  9),
-(67,  1,  10),
 (68,  2,  1),
 (69,  2,  2),
 (70,  2,  6),
@@ -387,7 +377,18 @@ INSERT INTO `group_permission` (`id`, `group`, `permission`) VALUES
 (73,  4,  5),
 (74,  4,  6),
 (75,  4,  7),
-(76,  4,  10);
+(76,  4,  10),
+(77,  1,  1),
+(78,  1,  2),
+(79,  1,  3),
+(80,  1,  4),
+(81,  1,  5),
+(82,  1,  6),
+(83,  1,  7),
+(84,  1,  8),
+(85,  1,  9),
+(86,  1,  10),
+(87,  1,  11);
 
 DROP TABLE IF EXISTS `operadora`;
 CREATE TABLE `operadora` (
@@ -418,6 +419,7 @@ CREATE TABLE `page` (
 
 INSERT INTO `page` (`id`, `name`, `permission`, `menu`) VALUES
 ('admin', 'Administração',  8,  1),
+('cadastro',  'Cadastros',  11, 1),
 ('clientes',  'Clientes', 6,  1),
 ('criar_cliente', 'Criar Clientes', 7,  0),
 ('criar_equipamento', 'Criar Equipamento',  5,  0),
@@ -445,7 +447,8 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 (7, 'criar clientes'),
 (8, 'administração'),
 (9, 'criar ticket'),
-(10,  'Editar Cliente');
+(10,  'Editar Cliente'),
+(11,  'cadastro');
 
 DROP TABLE IF EXISTS `session`;
 CREATE TABLE `session` (
@@ -458,6 +461,7 @@ CREATE TABLE `session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `session` (`id`, `user`, `expiration`) VALUES
+('41B8D3F7C5B1F4CF9DA861801EF8AEF3',  2,  '2015-11-29 13:19:20'),
 ('7D02E6570849C597FED949A6084171AE',  2,  '2015-11-20 13:38:06');
 
 DROP TABLE IF EXISTS `status`;
@@ -580,6 +584,7 @@ INSERT INTO `velocidade` (`id`, `velocidade`) VALUES
 (10,  '30M'),
 (11,  '40M'),
 (12,  '50M'),
-(13,  '100M');
+(13,  '100M'),
+(25,  '200M');
 
--- 2015-11-19 15:58:23
+-- 2015-11-28 17:16:06
