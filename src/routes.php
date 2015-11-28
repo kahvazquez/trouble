@@ -7,6 +7,7 @@ require 'Equipamentos.php';
 require 'Clientes.php';
 require 'Tickets.php';
 require 'Admin.php';
+require 'Cadastro.php';
 
 function makeRoute($path, $method, $callback)
 {
@@ -30,6 +31,10 @@ return [
   makeRoute('POST', '/entrar/?', Base::autenticar()),
 
   makeRoute('GET', '/sair', Base::sair()),
+
+  makeRoute('GET', '/cadastro?', protege(Cadastro::listar())),
+
+  makeRoute('POST', '/cadastro?', protege(Cadastro::salvar())),
 
   makeRoute('GET', '/admin/?', $redirectToAdminNovo),
 
