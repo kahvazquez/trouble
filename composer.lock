@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "ccb70dcc7249f1878957dffce5c8a54d",
+    "content-hash": "37d0efd3db9018d121822796a27a64d2",
     "packages": [
         {
             "name": "google/apiclient",
@@ -47,7 +47,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-09-23 04:19:33"
+            "time": "2015-09-23T04:19:33+00:00"
         },
         {
             "name": "j4mie/idiorm",
@@ -105,7 +105,7 @@
                 "orm",
                 "query builder"
             ],
-            "time": "2014-06-23 13:08:57"
+            "time": "2014-06-23T13:08:57+00:00"
         },
         {
             "name": "klein/klein",
@@ -161,34 +161,53 @@
                 "routing",
                 "sinatra"
             ],
-            "time": "2014-11-07 07:35:23"
+            "time": "2014-11-07T07:35:23+00:00"
         },
         {
             "name": "latte/latte",
-            "version": "v2.3.4",
+            "version": "v2.10.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/latte.git",
-                "reference": "5e891af999776d2204a9d06ad66ad8fa0bcd4f8b"
+                "reference": "596b28bf098ebb852732d60b00538139a009c4db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/latte/zipball/5e891af999776d2204a9d06ad66ad8fa0bcd4f8b",
-                "reference": "5e891af999776d2204a9d06ad66ad8fa0bcd4f8b",
+                "url": "https://api.github.com/repos/nette/latte/zipball/596b28bf098ebb852732d60b00538139a009c4db",
+                "reference": "596b28bf098ebb852732d60b00538139a009c4db",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "ext-tokenizer": "*",
-                "php": ">=5.3.1"
+                "php": ">=7.1 <8.2"
+            },
+            "conflict": {
+                "nette/application": "<2.4.1"
             },
             "require-dev": {
-                "nette/tester": "~1.3"
+                "nette/php-generator": "^3.3.4",
+                "nette/tester": "~2.0",
+                "nette/utils": "^3.0",
+                "phpstan/phpstan": "^0.12",
+                "tracy/tracy": "^2.3"
             },
             "suggest": {
                 "ext-fileinfo": "to use filter |datastream",
-                "ext-mbstring": "to use filters like lower, upper, capitalize, ..."
+                "ext-iconv": "to use filters |reverse, |substring",
+                "ext-mbstring": "to use filters like lower, upper, capitalize, ...",
+                "nette/php-generator": "to use tag {templatePrint}",
+                "nette/utils": "to use filter |webalize"
             },
+            "bin": [
+                "bin/latte-lint"
+            ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.10-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -197,26 +216,36 @@
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause",
-                "GPL-2.0",
-                "GPL-3.0"
+                "GPL-2.0-only",
+                "GPL-3.0-only"
             ],
             "authors": [
                 {
                     "name": "David Grudl",
-                    "homepage": "http://davidgrudl.com"
+                    "homepage": "https://davidgrudl.com"
                 },
                 {
                     "name": "Nette Community",
-                    "homepage": "http://nette.org/contributors"
+                    "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "Latte: the amazing template engine for PHP",
-            "homepage": "http://latte.nette.org",
+            "description": "☕ Latte: the intuitive and fast template engine for those who want the most secure PHP sites. Introduces context-sensitive escaping.",
+            "homepage": "https://latte.nette.org",
             "keywords": [
-                "templating",
+                "context-sensitive",
+                "engine",
+                "escaping",
+                "html",
+                "nette",
+                "security",
+                "template",
                 "twig"
             ],
-            "time": "2015-08-23 12:36:55"
+            "support": {
+                "issues": "https://github.com/nette/latte/issues",
+                "source": "https://github.com/nette/latte/tree/v2.10.8"
+            },
+            "time": "2022-01-04T14:13:28+00:00"
         },
         {
             "name": "mckay/flash",
@@ -262,7 +291,7 @@
                 "messages",
                 "session"
             ],
-            "time": "2015-04-30 21:38:32"
+            "time": "2015-04-30T21:38:32+00:00"
         },
         {
             "name": "mk-j/php_xlsxwriter",
@@ -300,7 +329,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2015-07-28 16:24:47"
+            "time": "2015-07-28T16:24:47+00:00"
         }
     ],
     "packages-dev": [],
@@ -310,5 +339,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
